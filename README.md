@@ -7,6 +7,7 @@ This turborepo uses [pnpm](https://pnpm.io) as a package manager. It includes th
 ### Apps and Packages
 
 - `web`: a [Nuxt.js](https://nuxtjs.org) app
+- `backend`: a [Nest.js](https://nestjs.com/) app
 - `config`: `eslint` configuration (using [@antfu/eslint-config](https://github.com/antfu/eslint-config))
 - `tsconfig`: `tsconfig.json`s used throughout the monorepo
 
