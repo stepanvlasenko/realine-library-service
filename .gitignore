@@ -28,3 +28,6 @@ yarn-error.log*
 
 # nuxt
 .output
+
+# docker volume
+data
