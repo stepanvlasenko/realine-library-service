@@ -1,10 +1,11 @@
 services:
   mongo:
+    container_name: realine-mongo-db
     image: 'bitnami/mongodb:latest'
     ports:
       - 27170:27017
     volumes:
-    - './:/bitnami/mongodb'
+      - './cache/:/bitnami/mongodb'
     environment:
     - MONGODB_ROOT_PASSWORD=fD4Eo6I8no5Dlo0v8QhWTo1aKC
     - MONGODB_ROOT_USER=realine
