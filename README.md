@@ -27,6 +27,12 @@ To develop all apps and packages, run the following command:
 pnpm run dev
 ```
 
+To develop all apps and packages with docker, run the following command:
+
+```
+pnpm run dev:docker
+```
+
 ### Lint
 
 To check & fix linter through all apps and packages, run the following command:
