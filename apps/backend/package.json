@@ -41,8 +41,8 @@
     "ts-node": "^10.0.0",
     "tsconfig-paths": "4.1.0",
     "typescript": "^4.7.4",
-    "@realine/eslint-config-custom": "workspace:*",
-    "@realine/tsconfig": "workspace:*"
+    "@realine/eslint-config-custom": "*",
+    "@realine/tsconfig": "*"
   },
   "jest": {
     "moduleFileExtensions": [
