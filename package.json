@@ -14,11 +14,11 @@
     "test": "turbo run test"
   },
   "devDependencies": {
-    "@realine/eslint-config-custom": "workspace:*",
+    "@realine/eslint-config-custom": "*",
     "turbo": "latest"
   },
   "engines": {
     "node": ">=v18.12.1"
   },
-  "packageManager": "pnpm@7.17.1"
+  "packageManager": "yarn@1.22.19"
 }
