@@ -1,22 +1,20 @@
-<template>
-    <div>
-        
-    </div>
-</template>
-
 <script setup lang="ts">
-import { PropType } from 'vue'
+import type { PropType } from 'vue'
 
-import { Variant, IBook } from '@types'
+import type { IBook, Variant } from '@types'
 
 defineProps({
     variant: {
         type: String as PropType<Variant>,
-        required: true
+        required: true,
     },
     book: {
         type: Object as PropType<IBook>,
-        required: true
-    }
+        required: true,
+    },
 })
 </script>
+
+<template>
+    <div />
+</template>
