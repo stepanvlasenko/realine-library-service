@@ -5,6 +5,6 @@ export default defineNuxtConfig({
         preset: 'netlify',
     },
     alias: {
-        '@types': path.join(__dirname, 'assets', 'ts', 'types.ts')
-    }
+        '@types': path.join(__dirname, 'assets', 'ts', 'types.ts'),
+    },
 })
