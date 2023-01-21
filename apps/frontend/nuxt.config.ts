@@ -8,6 +8,6 @@ export default defineNuxtConfig({
         '@types': path.join(__dirname, 'assets', 'ts', 'types.ts'),
     },
     modules: [
-        'nuxt-icons'
-    ]
+        'nuxt-icons',
+    ],
 })

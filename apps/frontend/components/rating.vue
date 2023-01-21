@@ -1,17 +1,19 @@
 <script setup lang="ts">
-    defineProps({
-        rating: {
-            type: Number,
-            required: true,
-            default: 0,
-        }
-    }
-)
+defineProps({
+    rating: {
+        type: Number,
+        required: true,
+        default: 0,
+    },
+})
 </script>
 
 <template>
     <div class="rating">
-        <p class="rating__text">{{rating}}</p><NuxtIcon name="star" filled class="rating__star"></NuxtIcon>
+        <p class="rating__text">
+            {{ rating }}
+        </p>
+        <NuxtIcon name="star" filled class="rating__star" />
     </div>
 </template>
 

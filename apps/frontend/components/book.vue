@@ -16,12 +16,11 @@ defineProps({
 </script>
 
 <template>
-    <div v-if="variant == 'small'" class="book--small">
+    <div v-if="variant === 'small'" class="book--small">
         <div class="book__image--wrapper--small">
             <img class="book__image--small" :src="book.coverImageURL">
             <div class="book__rating--small">
-                <!-- ЗДЕСЬ НЕ ВЫЧИСЛЯЕТСЯ РЕЙТИНГ (ОН ПРОСТО ДЛЯ ПРИМЕРА) -->
-                <Rating :rating="4.5"></Rating>
+                <Rating :rating="book.rating" />
             </div>
         </div>
         <a href="#" class="book__link--small">Книга</a>

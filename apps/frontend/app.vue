@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { IBook } from '@types';
+import type { IBook } from '@types'
 
 const myBook: IBook = {
     ID: 0,
@@ -10,6 +10,7 @@ const myBook: IBook = {
     description: 'description',
     genresID: [0, 1, 2],
     reviewsID: [0, 1, 2],
+    rating: 4.5,
     coverImageURL: '/images/test-book.jpg',
     keywords: ['book'],
     publishDate: new Date(0),
@@ -22,16 +23,14 @@ const myBook: IBook = {
 <template>
     <div>
         Lorem, ipsum.
-    </div>  
+    </div>
     <!-- <NuxtIcon name="star" filled class="class"></NuxtIcon> -->
     <div class="test">
-        <Book variant="small" :book="myBook"></Book>
+        <Book variant="small" :book="myBook" />
     </div>
-    
 </template>
 
 <style scoped>
-
 .test {
     width: 600px;
     height: 300px;
