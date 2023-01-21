@@ -12,7 +12,10 @@
     "lint:fix": "eslint --fix"
   },
   "devDependencies": {
-    "nuxt": "3.0.0",
-    "@realine/tsconfig": "*"
+    "@realine/tsconfig": "*",
+    "nuxt": "3.0.0"
+  },
+  "dependencies": {
+    "nuxt-icons": "^3.0.0"
   }
 }
