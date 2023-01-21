@@ -28,11 +28,21 @@ const myBook: IBook = {
     <div class="test">
         <Book variant="small" :book="myBook" />
     </div>
+    <!-- <div class="test2">
+        <Avatar variant="bordered" avatar-u-r-l="/images/test-book.jpg" />
+    </div> -->
 </template>
 
-<style scoped>
+<style>
+* {
+    box-sizing: border-box;
+}
 .test {
     width: 600px;
     height: 300px;
+}
+.test2 {
+    width: 120px;
+    height: 120px;
 }
 </style>
