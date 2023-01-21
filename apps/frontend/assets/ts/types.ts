@@ -3,7 +3,7 @@
  *
  * TODO: add to package with types
  */
-export type Variant = 'vertical' | 'horisontal' | 'small'
+export type BookVariant = 'vertical' | 'horisontal' | 'small'
 
 /**
  * Interface for IBook. Used on frontend
@@ -49,7 +49,14 @@ export interface IUser {
     readedBooksID: Array<number>
     favorites_id: Array<number>
     email: string
+    avatarURL: string
     // No password
     created_at: Date
     updated_at: Date
 }
+/**
+ * type for Avatar variant. Used in frontend
+ *
+ * TODO: add to package with types
+ */
+export type AvatarVariant = 'default' | 'bordered'
