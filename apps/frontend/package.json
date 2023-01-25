@@ -12,7 +12,8 @@
     "lint:fix": "eslint --fix"
   },
   "devDependencies": {
+    "@realine/tsconfig": "*",
     "nuxt": "3.0.0",
-    "@realine/tsconfig": "*"
+    "sass": "^1.57.1"
   }
 }
