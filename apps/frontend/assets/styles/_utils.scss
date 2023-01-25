@@ -1,0 +1,37 @@
+@use 'sass:color' as color;
+
+/// Get RGB components of color vector
+///
+/// @param { color } $color color
+/// @returns { string } color represented in string `rrr ggg bbb`
+@function _color-to-rgb($color) {
+    $red: color.red($color);
+    $green: color.green($color);
+    $blue: color.blue($color);
+
+    @return '#{$red}, #{$green}, #{$blue}';
+}
+
+/// Mixin for register color by its name
+/// Register --c-$name color with color RGB values
+///
+/// @example
+/// :root {
+///     @include _register-color('lorem', #FFFFFF)
+///     // Register `--c-lorem` css variable equals `255, 255, 255`
+/// }
+///
+/// @param { string } $name css variable name
+/// @param { color } $color css variable color
+@mixin _register-color($name, $color) {
+    --c-#{'' + $name}: #{_color-to-rgb($color)};
+}
+
+/// Mixin for register colors from colors-map
+///
+/// @param { Map<string, color> } $colors-map map with colors
+@mixin register-colors($colors-map) {
+    @each $name, $color in $colors-map {
+        @include _register-color($name, $color);
+    }
+}
