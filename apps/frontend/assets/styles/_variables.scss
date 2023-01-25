@@ -1,3 +1,5 @@
+@forward 'breakpoints.module';
+
 $FONT_WEIGHTS : (
     'thin': 100,
     'extra lignt': 200,
@@ -9,5 +11,3 @@ $FONT_WEIGHTS : (
     'extra bold': 800,
     'black': 900,
 );
-
-$DESKTOP_BREAKPOINT: 768px;
