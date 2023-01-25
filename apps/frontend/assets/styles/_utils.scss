@@ -1,4 +1,6 @@
 @use 'sass:color' as color;
+@use 'sass:map' as map;
+@use 'typography' as typography;
 
 /// Get RGB components of color vector
 ///
@@ -34,4 +36,21 @@
     @each $name, $color in $colors-map {
         @include _register-color($name, $color);
     }
+}
+
+/// Mixin for easilly using design typography by it's name
+///
+/// @param { string } $typography-name valid typography name
+@mixin typography($typography-name) {
+    $typography: map.get(typography.$typography, $typography-name);
+
+    @if ($typography == null) {
+        $error-message: #{'Cannot find typography "#{$typography-name}".'} + ' '
+            + #{'Allowed typography: #{map.keys(typography.$typography)}'};
+        @error $error-message;
+    }
+
+    font-size: map.get($typography, font-size);
+    font-weight: map.get($typography, font-weight);
+    font-family: map.get($typography, font-family);
 }
