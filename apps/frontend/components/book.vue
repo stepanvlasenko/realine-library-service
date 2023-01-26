@@ -16,7 +16,7 @@ defineProps({
 </script>
 
 <template>
-    <div v-if="variant === 'small'" class="book--small">
+    <div v-if="variant === 'small'" :class="`book--${variant}`">
         <div class="book__image-wrapper">
             <img class="book__image" :src="book.coverImageURL">
             <div class="book__rating">
