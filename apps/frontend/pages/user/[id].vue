@@ -21,7 +21,7 @@ const myBook: IBook = {
 </script>
 
 <template>
-    <List :books="[myBook, myBook, myBook]" title="Books" />
+    <List :books="[myBook, myBook, myBook]" title="Books" variant="changeable" />
 </template>
 
 <style scoped>
