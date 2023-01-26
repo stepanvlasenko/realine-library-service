@@ -60,3 +60,10 @@ export interface IUser {
  * TODO: add to package with types
  */
 export type AvatarVariant = 'default' | 'bordered'
+
+/**
+ * type for List variant. Used in frontend
+ *
+ * TODO: add to package with types
+ */
+export type ListVariant = 'list' | 'slider' | 'changeable'
