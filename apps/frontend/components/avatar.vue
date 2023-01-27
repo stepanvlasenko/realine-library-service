@@ -23,20 +23,20 @@ defineProps({
 </template>
 
 <style scoped lang="scss">
-    .avatar {
-        height: 100%;
+.avatar {
+    height: 100%;
+    width: fit-content;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    &__image {
         width: 100%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        &__image {
-            width: 100%;
-            object-fit: cover;
-            aspect-ratio: 1;
-            border-radius: 50%;
-            &--bordered {
-                border: 4px solid white;
-            }
+        object-fit: cover;
+        aspect-ratio: 1;
+        border-radius: 50%;
+        &--bordered {
+            border: 4px solid white;
         }
     }
+}
 </style>
