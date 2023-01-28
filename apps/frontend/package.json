@@ -14,7 +14,6 @@
   "devDependencies": {
     "@realine/tsconfig": "*",
     "sass": "^1.57.1",
-    "sass-loader": "^10.4.1",
     "nuxt": "3.0.0"
   },
   "dependencies": {

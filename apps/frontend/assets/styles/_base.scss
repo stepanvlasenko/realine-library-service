@@ -1,0 +1,6 @@
+@use 'utils' as utils;
+@use 'theme' as theme;
+
+:root {
+    @include utils.register-colors(theme.$colors);
+}
