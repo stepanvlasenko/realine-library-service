@@ -13,8 +13,10 @@
   },
   "devDependencies": {
     "@realine/tsconfig": "*",
-    "sass": "^1.57.1",
-    "nuxt": "3.0.0"
+    "@vueuse/core": "^9.11.1",
+    "@vueuse/nuxt": "^9.11.1",
+    "nuxt": "3.0.0",
+    "sass": "^1.57.1"
   },
   "dependencies": {
     "nuxt-icons": "^3.0.0"

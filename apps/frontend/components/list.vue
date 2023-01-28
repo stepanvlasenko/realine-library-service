@@ -1,8 +1,9 @@
 <script setup lang="ts">
 import type { PropType } from 'vue'
 import type { IBook, ListVariant } from '@types'
+import { useScssBreakpoints } from '@/compasables/useScssBreakpoints'
 
-defineProps({
+const { variant } = defineProps({
     books: {
         type: Array<IBook>,
         required: true,
@@ -17,6 +18,11 @@ defineProps({
         required: true,
     },
 })
+const firstVariant = variant
+const breakpoints = useScssBreakpoints()
+// if (firstVariant === 'changeable') {
+
+// }
 </script>
 
 <template>
