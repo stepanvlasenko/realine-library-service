@@ -19,6 +19,7 @@
     "sass": "^1.57.1"
   },
   "dependencies": {
-    "nuxt-icons": "^3.0.0"
+    "nuxt-icons": "^3.0.0",
+    "swiper": "^8.4.6"
   }
 }

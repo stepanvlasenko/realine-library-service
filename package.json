@@ -23,6 +23,6 @@
   },
   "packageManager": "yarn@1.22.19",
   "dependencies": {
-    "swiper": "^8.4.6"
+
   }
 }
