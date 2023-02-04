@@ -23,19 +23,23 @@ defineProps({
                 <Rating :rating="book.rating" />
             </div>
         </div>
-        <a href="#" class="book__link">Книга</a>
+        <p href="#" class="book__link">
+            Книга
+        </p>
     </div>
 </template>
 
 <style scoped lang="scss">
-    a {
+    p {
+        margin: 0;
+        padding: 0;
         color: #fff;
         text-decoration: none;
     }
     .book {
         &--small {
             background: #232329;
-            width: 30%;
+            width: 100%;
             box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.25);
             border-radius: 10px 20px 10px 10px;
             padding-left: 10px;

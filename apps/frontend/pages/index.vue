@@ -35,11 +35,12 @@ const myBook: IBook = {
 
 <style scoped>
 .test {
-    width: 600px;
+    width: 200px;
     height: 300px;
 }
 .test2 {
     width: 120px;
     height: 120px;
+    background-color: black;
 }
 </style>
