@@ -1,9 +1,11 @@
 <script setup lang="ts">
 import type { PropType } from 'vue'
 import type { IBook, ListVariant } from '@types'
+import { Swiper, SwiperSlide } from 'swiper/vue'
+import 'swiper/css'
 import { useScssBreakpoints } from '@/compasables/useScssBreakpoints'
 
-const { variant } = defineProps({
+const props = defineProps({
     books: {
         type: Array<IBook>,
         required: true,
@@ -18,36 +20,67 @@ const { variant } = defineProps({
         required: true,
     },
 })
-const firstVariant = variant
 const breakpoints = useScssBreakpoints()
-// if (firstVariant === 'changeable') {
 
-// }
+let variant = props.variant
+const firstVariant = variant
+
+if (firstVariant === 'changeable') {
+    watch(breakpoints.desktop, () => {
+        if (breakpoints.desktop.value)
+            variant = 'list'
+        else variant = 'slider'
+    }, {
+        immediate: true,
+    })
+}
 </script>
 
 <template>
-    <!-- Недоделано, но хочу пользоваться настроенными брекпойнтами -->
-    <div class="list">
-        <h2 v-if="title" class="list__title">
+    {{ breakpoints.desktop }}
+    <div>
+        <h2 v-if="title" class="title">
             {{ title }}
         </h2>
-        <div class="list__items" :class="`list__items--${variant}`">
-            <Book
+        <Swiper
+            v-if="variant === 'slider'"
+            :grab-cursor="true"
+            :space-between="12"
+            :slides-per-view="3"
+        >
+            <SwiperSlide
                 v-for="book of books"
                 :key="book.ID"
-                :book="book"
-                variant="small"
-            />
+            >
+                <Book
+                    :book="book"
+                    variant="small"
+                />
+            </SwiperSlide>
+        </Swiper>
+        <div v-if="variant === 'list'" class="list">
+            <div
+                v-for="book of books"
+                :key="book.ID"
+                class="list__item"
+            >
+                <Book
+                    :book="book"
+                    variant="small"
+                />
+            </div>
         </div>
     </div>
 </template>
 
 <style scoped lang="scss">
-.list__items {
+.list {
     display: flex;
     flex-direction: row;
-    &--list {
-        flex-wrap: wrap;
+    flex-wrap: wrap;
+    gap: 12px;
+    &__item {
+        width: 30%
     }
 }
 </style>
