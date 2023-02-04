@@ -36,7 +36,7 @@ export interface IBook {
 export type UserRoles = 'user' | 'author' | 'moderator' | 'administrator'
 
 /**
- * Interface for User. Used on frontend
+ * Interface for User. Used on frontend without password
  *
  * TODO: add to package with types
  */
@@ -47,12 +47,12 @@ export interface IUser {
     role: UserRoles
     interests: Array<string>
     readedBooksID: Array<number>
-    favorites_id: Array<number>
+    favoritesID: Array<number>
     email: string
     avatarURL: string
     // No password
-    created_at: Date
-    updated_at: Date
+    createdAt: Date
+    updatedAt: Date
 }
 /**
  * type for Avatar variant. Used in frontend
