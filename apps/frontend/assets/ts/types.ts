@@ -66,4 +66,4 @@ export type AvatarVariant = 'default' | 'bordered'
  *
  * TODO: add to package with types
  */
-export type ListVariant = 'list' | 'slider' | 'changeable'
+export type ListVariant = 'list' | 'slider'

@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import type { IBook, IUser } from '@types'
+import type { IBook, IUser, ListVariant } from '@types'
+import { useScssBreakpoints } from '@/compasables/useScssBreakpoints'
 
 const myBook: IBook = {
     ID: 0,
@@ -32,6 +33,13 @@ const user: IUser = {
     createdAt: new Date(0),
     updatedAt: new Date(0),
 }
+const breakpoints = useScssBreakpoints()
+
+const listVariant = computed<ListVariant>(() => {
+    const isDesktop = breakpoints.desktop.value
+
+    return isDesktop ? 'list' : 'slider'
+})
 </script>
 
 <template>
@@ -42,10 +50,12 @@ const user: IUser = {
                 <h2 class="bio__username">{{ user.username }}</h2>
                 <p class="bio__birthday">{{ user.birthday }}</p>
             </div>
-            <List title="Прочитанные книги" variant="changeable" :books="[myBook, myBook, myBook]" />
+            <List title="Прочитанные книги" variant="slider" :books="[myBook, myBook, myBook, myBook, myBook, myBook, myBook]" />
         </div>
         <div class="favorite">
-            <List title="Любимые книги" variant="changeable" :books="[myBook, myBook, myBook]" />
+            <ClientOnly>
+                <List title="Любимые книги" :variant="listVariant" :books="[myBook, myBook, myBook, myBook, myBook, myBook, myBook]" />
+            </ClientOnly>
             <h2>Любимая книга</h2>
             <Book variant="vertical" :book="myBook" />
         </div>

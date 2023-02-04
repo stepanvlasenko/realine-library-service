@@ -22,15 +22,8 @@ const myBook: IBook = {
 
 <template>
     <div>
-        Lorem, ipsum.
+        <BookSwiper />
     </div>
-    <!-- <NuxtIcon name="star" filled class="class"></NuxtIcon> -->
-    <div class="test">
-        <Book variant="small" :book="myBook" />
-    </div>
-    <!-- <div class="test2">
-        <Avatar variant="bordered" avatar-u-r-l="/images/test-book.jpg" />
-    </div> -->
 </template>
 
 <style scoped>

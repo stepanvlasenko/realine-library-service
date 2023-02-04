@@ -1,9 +1,8 @@
 <script setup lang="ts">
 import type { PropType } from 'vue'
 import type { IBook, ListVariant } from '@types'
-import { Swiper, SwiperSlide } from 'swiper/vue'
-import 'swiper/css'
-import { useScssBreakpoints } from '@/compasables/useScssBreakpoints'
+// import { Swiper, SwiperSlide } from 'swiper/vue'
+// import 'swiper/css'
 
 const props = defineProps({
     books: {
@@ -20,29 +19,14 @@ const props = defineProps({
         required: true,
     },
 })
-const breakpoints = useScssBreakpoints()
-
-let variant = props.variant
-const firstVariant = variant
-
-if (firstVariant === 'changeable') {
-    watch(breakpoints.desktop, () => {
-        if (breakpoints.desktop.value)
-            variant = 'list'
-        else variant = 'slider'
-    }, {
-        immediate: true,
-    })
-}
 </script>
 
 <template>
-    {{ breakpoints.desktop }}
     <div>
         <h2 v-if="title" class="title">
             {{ title }}
         </h2>
-        <Swiper
+        <!-- <Swiper
             v-if="variant === 'slider'"
             :grab-cursor="true"
             :space-between="12"
@@ -57,7 +41,8 @@ if (firstVariant === 'changeable') {
                     variant="small"
                 />
             </SwiperSlide>
-        </Swiper>
+        </Swiper> -->
+        <b-form-slider />
         <div v-if="variant === 'list'" class="list">
             <div
                 v-for="book of books"
