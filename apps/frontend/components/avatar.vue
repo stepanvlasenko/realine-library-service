@@ -23,19 +23,20 @@ defineProps({
 </template>
 
 <style scoped lang="scss">
+@use '@/assets/styles/index.scss' as styles;
 .avatar {
-    height: 100%;
-    width: fit-content;
+    width: inherit;
     display: flex;
     align-items: center;
     justify-content: center;
     &__image {
-        width: 100%;
+        height: inherit;
+        width: inherit;
         object-fit: cover;
         aspect-ratio: 1;
         border-radius: 50%;
         &--bordered {
-            border: 4px solid white;
+            border: 4px solid map-get(styles.$colors, white);
         }
     }
 }

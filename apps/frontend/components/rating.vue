@@ -18,17 +18,19 @@ defineProps({
 </template>
 
 <style scoped lang="scss">
+    @use '@/assets/styles/index.scss' as styles;
     .rating {
         display: flex;
         flex-direction: row;
         align-items: center;
         &__text {
-            color: #fff;
+            color: map-get(styles.$colors, white);
+            @include styles.typography('body-2');
             padding: 0;
             margin: 0;
         }
         &__star {
-            color: #C79E0E;
+            color: map-get(styles.$colors, yellow);
             font-size: 1rem;
         }
     }

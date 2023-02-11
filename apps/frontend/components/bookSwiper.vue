@@ -20,7 +20,6 @@ const {
     firstSlideIndex,
     lastSlideIndex,
     visibleSlides,
-    slides,
     selectNextSlide,
     selectPrevSlide,
 } = useSwiper(books.value.length, itemsInRow)
@@ -56,13 +55,11 @@ useSwipe(slidesRef, {
                     v-for="(book, index) in books"
                     :key="index"
                 >
-                    <KeepAlive>
-                        <Book
-                            v-if="visibleBooks.get(book)"
-                            :book="book"
-                            variant="small"
-                        />
-                    </KeepAlive>
+                    <Book
+                        v-if="visibleBooks.get(book)"
+                        :book="book"
+                        variant="small"
+                    />
                 </template>
             </div>
             <button
@@ -77,6 +74,7 @@ useSwipe(slidesRef, {
 </template>
 
 <style scoped lang="scss">
+@use '@/assets/styles/index.scss' as styles;
 .swiper {
     &__wrapper {
         display: flex;
@@ -84,13 +82,13 @@ useSwipe(slidesRef, {
         justify-content: space-between;
     }
     &__chevron {
+        color: map-get(styles.$colors, white);
         border: none;
         background-color: transparent;
         padding: 0;
         cursor: pointer;
         width: fit-content;
         height: fit-content;
-        @include typo(body-1-normal);
         &.left {
             transform: rotate(90deg);
         }
@@ -100,11 +98,10 @@ useSwipe(slidesRef, {
     }
     &__slides {
         overflow-x: clip;
-        padding: rem(12px);
         flex: 1 0 0;
         display: flex;
         align-items: flex-start;
-        gap: rem(48px);
+        gap: 12px;
         & > * {
             flex: 1 0 0;
         }
