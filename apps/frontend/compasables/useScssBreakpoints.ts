@@ -1,24 +1,20 @@
+import { useBreakpoints } from '@vueuse/core'
 import breakpoints from '@/assets/styles/_breakpoints.module.scss'
 
 interface IBreakpoints {
     desktop: string
 }
 
-export const useScssVariables = () => {
-    const _breakpoints: IBreakpoints = breakpoints
-
+export const useScssBreakpoints = () => {
     const {
         desktop,
-    } = _breakpoints
+    } = breakpoints as IBreakpoints
 
     const _convertPxToNumber = (px: string) => +px.replace('px', '')
 
-    // const _breakpoints = {
-    //     mobile: _convertPxToNumber(mobile),
-    //     desktop: _convertPxToNumber(desktop),
-    // }
-
-    return {
+    const _breakpoints = {
         desktop: _convertPxToNumber(desktop),
     }
+
+    return useBreakpoints(_breakpoints)
 }

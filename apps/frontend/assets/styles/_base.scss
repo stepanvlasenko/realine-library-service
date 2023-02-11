@@ -4,3 +4,16 @@
 :root {
     @include utils.register-colors(theme.$colors);
 }
+* {
+    box-sizing: border-box;
+}
+body {
+    margin: 0;
+    padding: 0;
+}
+h2 {
+    color: map-get(theme.$colors, white);
+    @include utils.typography('heading-2');
+    padding: 0;
+    margin: 0;
+}

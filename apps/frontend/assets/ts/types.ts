@@ -1,5 +1,15 @@
-export type Variant = 'vertical' | 'horisontal' | 'small'
+/**
+ * type for Book variant. Used on frontend
+ *
+ * TODO: add to package with types
+ */
+export type BookVariant = 'vertical' | 'horisontal' | 'small'
 
+/**
+ * Interface for IBook. Used on frontend
+ *
+ * TODO: add to package with types and probable change decription of interface because might be used not only on frontend
+ */
 export interface IBook {
     ID: number
     name: string
@@ -9,6 +19,7 @@ export interface IBook {
     description: string
     genresID: Array<number>
     reviewsID: Array<number>
+    rating: number
     coverImageURL: string
     keywords: Array<string>
     publishDate: Date
@@ -16,3 +27,43 @@ export interface IBook {
     createdAt: Date
     updatedAt: Date
 }
+
+/**
+ * type for User roles. Used in frontend
+ *
+ * TODO: add to package with types
+ */
+export type UserRoles = 'user' | 'author' | 'moderator' | 'administrator'
+
+/**
+ * Interface for User. Used on frontend without password
+ *
+ * TODO: add to package with types
+ */
+export interface IUser {
+    ID: number
+    username: string
+    birthday: Date
+    role: UserRoles
+    interests: Array<string>
+    readedBooksID: Array<number>
+    favoritesID: Array<number>
+    email: string
+    avatarURL: string
+    // No password
+    createdAt: Date
+    updatedAt: Date
+}
+/**
+ * type for Avatar variant. Used in frontend
+ *
+ * TODO: add to package with types
+ */
+export type AvatarVariant = 'default' | 'bordered'
+
+/**
+ * type for List variant. Used in frontend
+ *
+ * TODO: add to package with types
+ */
+export type ListVariant = 'list' | 'slider'

@@ -1,5 +1,11 @@
+<script setup lang="ts">
+
+</script>
+
 <template>
-    <div>
-        Lorem, ipsum.
-    </div>
+    <NuxtPage />
 </template>
+
+<style>
+
+</style>

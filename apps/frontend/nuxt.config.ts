@@ -12,4 +12,8 @@ export default defineNuxtConfig({
     alias: {
         '@types': path.join(__dirname, 'assets', 'ts', 'types.ts'),
     },
+    modules: [
+        'nuxt-icons',
+        '@vueuse/nuxt',
+    ],
 })
