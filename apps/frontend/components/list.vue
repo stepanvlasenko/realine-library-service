@@ -1,10 +1,8 @@
 <script setup lang="ts">
 import type { PropType } from 'vue'
 import type { IBook, ListVariant } from '@types'
-// import { Swiper, SwiperSlide } from 'swiper/vue'
-// import 'swiper/css'
 
-const props = defineProps({
+const { books } = defineProps({
     books: {
         type: Array<IBook>,
         required: true,
@@ -19,6 +17,10 @@ const props = defineProps({
         required: true,
     },
 })
+
+const itemsInRow = computed(() => {
+    return books.length > 2 ? 3 : books.length
+})
 </script>
 
 <template>
@@ -26,23 +28,8 @@ const props = defineProps({
         <h2 v-if="title" class="title">
             {{ title }}
         </h2>
-        <!-- <Swiper
-            v-if="variant === 'slider'"
-            :grab-cursor="true"
-            :space-between="12"
-            :slides-per-view="3"
-        >
-            <SwiperSlide
-                v-for="book of books"
-                :key="book.ID"
-            >
-                <Book
-                    :book="book"
-                    variant="small"
-                />
-            </SwiperSlide>
-        </Swiper> -->
-        <b-form-slider />
+        <BookSwiper v-if="variant === 'slider'" :books="books" :items-in-row="itemsInRow" />
+
         <div v-if="variant === 'list'" class="list">
             <div
                 v-for="book of books"
