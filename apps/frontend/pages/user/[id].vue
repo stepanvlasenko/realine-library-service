@@ -58,7 +58,7 @@ const formatBirthday = (date: Date): string => `${date.getDate()}.${date.getMont
                     <h2 class="bio__username">{{ user.username }}</h2>
                     <p class="bio__birthday">{{ formatBirthday(user.birthday) }}</p>
                 </div>
-                <hr color="grey">
+                <hr>
                 <List title="Прочитанные книги" variant="slider" :books="books" />
             </div>
         </div>

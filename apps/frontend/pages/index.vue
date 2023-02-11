@@ -22,7 +22,7 @@ const myBook: IBook = {
 
 <template>
     <div>
-        <BookSwiper />
+        <BookSwiper :books="[myBook]" />
     </div>
 </template>
 
