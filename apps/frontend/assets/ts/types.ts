@@ -54,6 +54,18 @@ export interface IUser {
     createdAt: Date
     updatedAt: Date
 }
+
+export interface IAuthor {
+    ID: number
+    name: string
+    surname: string
+    description: string
+    writtenBooksID: Array<number>
+    birthday: Date
+    dayOfDeath: Date
+    secondName?: string
+}
+
 /**
  * type for Avatar variant. Used in frontend
  *
