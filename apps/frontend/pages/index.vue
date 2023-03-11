@@ -22,7 +22,8 @@ const myBook: IBook = {
 
 <template>
     <div>
-        <BookSwiper :books="[myBook]" />
+        <BaseLink text="Юзер" url="/user/0" />
+        <BaseLink text="Книга" url="/book/0" />
     </div>
 </template>
 

@@ -48,10 +48,7 @@ const formatDescription = (desc: string, nOfSymbols: number): string => {
             <p class="book__description">{{ formatDescription(book.description, 100) }}</p>
             <div class="book__details">
                 <Rating :rating="book.rating" />
-                <div class="book__link">
-                    <p>Подробнее</p>
-                    <NuxtIcon class="arrow" name="arrow" />
-                </div>
+                <BaseLink text="Подробнее" :url="`/book/${book.ID}`"/>
             </div>
         </div>
     </div>
@@ -65,9 +62,6 @@ const formatDescription = (desc: string, nOfSymbols: number): string => {
         @include styles.typography('body-3');
         color: map-get(styles.$colors, white);
         text-decoration: none;
-    }
-    .arrow {
-        color: map-get(styles.$colors, white);
     }
     .book {
         &--small {
@@ -145,17 +139,6 @@ const formatDescription = (desc: string, nOfSymbols: number): string => {
             flex-wrap: nowrap;
             justify-content: space-between;
             align-items: center;
-        }
-        &--vertical &__link {
-            display: flex;
-            flex-direction: row;
-            flex-wrap: nowrap;
-            justify-content: space-around;
-            align-items: center;
-            gap: 5px;
-            padding: 2px 20px;
-            border-radius: 8px;
-            background: linear-gradient(91.81deg, map-get(styles.$colors, violet) 0%, map-get(styles.$colors, green) 100%);
         }
     }
 </style>
