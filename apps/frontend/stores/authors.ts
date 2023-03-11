@@ -2,38 +2,26 @@ import { defineStore } from 'pinia'
 import type { IAuthor } from '@types'
 
 class Author implements IAuthor {
-    ID: number
-    name: string
-    surname: string
-    description: string
-    writtenBooksID: Array<number>
-    birthday: Date
-    dayOfDeath: Date
-    secondName?: string
-
     constructor(
-        ID: number,
-        name: string,
-        surname: string,
-        description: string,
-        writtenBooksID: Array<number>,
-        birthday: Date,
-        dayOfDeath: Date,
-        secondName?: string,
-    ) {
-        this.ID = ID
-        this.name = name
-        this.surname = surname
-        this.secondName = secondName
-        this.description = description
-        this.writtenBooksID = writtenBooksID
-        this.birthday = birthday
-        this.dayOfDeath = dayOfDeath
+        public ID: number,
+        public name: string,
+        public surname: string,
+        public description: string,
+        public writtenBooksID: Array<number>,
+        public birthday: Date,
+        public dayOfDeath: Date,
+        public secondName?: string,
+    ) {}
+
+    public getFullName(): string {
+        if (this.secondName)
+            return `${this.name} ${this.secondName} ${this.surname}`
+        return `${this.name} ${this.surname}`
     }
 }
 // ТЫ НЕ ЛОВИШЬ ОШИБКИ!!! А ЧТО ЕСЛИ НЕТ ТАКОГО АВТОРА!!!!*???!?!?!??! С КНИГАМИ ТОЖЕ САМОЕ
 export const useAuthors = defineStore('authors', () => {
-    const loadedAuthors: Author[] = []
+    const loadedAuthors: Author[] = [new Author(0, 'Александр', 'Пушкин', 'Вообще-то Дюма', [0], new Date(), new Date(), 'Сергеевич')]
 
     /**
      * request and add in loadedAuthors

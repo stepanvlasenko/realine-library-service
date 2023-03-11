@@ -66,7 +66,7 @@ export const useBooks = defineStore('books', () => {
      * calls getBooksByIDs with ids of books by this author
      * @returns array of books by this author
      */
-    const getBooksbyAuthor = async (authorID: number) => {
+    const getBooksByAuthorID = async (authorID: number) => {
         const author = await useAuthors().getAuthorByID(authorID)
         return getBooksByIDs(author.writtenBooksID)
     }
@@ -84,5 +84,5 @@ export const useBooks = defineStore('books', () => {
         return responce
     }
 
-    return { loadedBooks, fetchBookByID, getBookByID, fetchBooksByIDs, getBooksByIDs, getBooksbyAuthor, fetchSimilarBooksByBook }
+    return { loadedBooks, fetchBookByID, getBookByID, fetchBooksByIDs, getBooksByIDs, getBooksByAuthorID, fetchSimilarBooksByBook }
 })
