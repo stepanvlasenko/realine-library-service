@@ -64,6 +64,7 @@ export interface IAuthor {
     birthday: Date
     dayOfDeath: Date
     secondName?: string
+    getFullName: () => string
 }
 
 /**
