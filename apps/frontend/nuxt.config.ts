@@ -15,5 +15,6 @@ export default defineNuxtConfig({
     modules: [
         'nuxt-icons',
         '@vueuse/nuxt',
+        '@pinia/nuxt',
     ],
 })
