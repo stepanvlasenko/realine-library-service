@@ -17,3 +17,10 @@ h2 {
     padding: 0;
     margin: 0;
 }
+h3 {
+    color: map-get(theme.$colors, white);
+    @include utils.typography('heading-3');
+    padding: 0;
+    margin: 0;
+}
+
