@@ -84,5 +84,13 @@ export const useBooks = defineStore('books', () => {
         return responce
     }
 
-    return { loadedBooks, fetchBookByID, getBookByID, fetchBooksByIDs, getBooksByIDs, getBooksByAuthorID, fetchSimilarBooksByBook }
+    const fetchBooksByFirstSymbol = async (sym: string) => {
+        const responce = await $fetch<IBook[]>(`api/searchbooks/${sym}`, {
+            onResponseError: (ctx) => {
+                throw new Error(String(ctx))
+            },
+        })
+        return responce
+    }
+    return { loadedBooks, getBookByID, getBooksByIDs, getBooksByAuthorID, fetchSimilarBooksByBook, fetchBooksByFirstSymbol }
 })
