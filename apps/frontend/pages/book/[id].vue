@@ -114,7 +114,8 @@ hr {
     display: grid;
     gap: 4px;
     &__image-wrapper {
-        padding: 5%;
+        padding-right: 10%;
+        padding-bottom: 10%;
     }
     &__image {
         aspect-ratio: 3/4;
