@@ -21,15 +21,22 @@ class Author implements IAuthor {
 }
 // ТЫ НЕ ЛОВИШЬ ОШИБКИ!!! А ЧТО ЕСЛИ НЕТ ТАКОГО АВТОРА!!!!*???!?!?!??! С КНИГАМИ ТОЖЕ САМОЕ
 export const useAuthors = defineStore('authors', () => {
-    const loadedAuthors: Author[] = [new Author(0, 'Александр', 'Пушкин', 'Вообще-то Дюма', [0], new Date(), new Date(), 'Сергеевич')]
+    const loadedAuthors: Author[] = [
+        new Author(0, 'Александр', 'Пушкин', 'Вообще-то Дюма', [0], new Date(), new Date(), 'Сергеевич'),
+        new Author(1, 'Григорий', 'Мельник', 'Лалка', [1], new Date(), new Date(), 'Папочка'),
+        new Author(2, 'Николай', 'Гоголь', 'Не горький', [2], new Date(), new Date(), 'Васильевич'),
+    ]
 
     /**
      * request and add in loadedAuthors
      * @param ID ID of author
      * @returns author with this ID
      */
-    const fetchAuthorByID = async (ID: number) => {
-        const responce = await $fetch<Author>(`/api/authors/${ID}`, {
+    const fetchAuthorByID = async (id: number) => {
+        const responce = await $fetch<Author>('/api/authors/**', {
+            params: {
+                id,
+            },
             onResponseError: (ctx) => {
                 throw new Error(String(ctx))
             },

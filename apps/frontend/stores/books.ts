@@ -6,36 +6,15 @@ export const useBooks = defineStore('books', () => {
     const loadedBooks: IBook[] = []
 
     /**
-     * return book with id in param
-     * @param id id of book
-     */
-    // Сделать нормальный запрос
-    const fetchBookByID = async (id: number) => {
-        const responce = await $fetch<IBook>(`/api/books/${id}`, {
-            onResponseError: (ctx) => {
-                throw new Error(String(ctx))
-            },
-        })
-        loadedBooks.push(responce)
-        return responce
-    }
-
-    /**
-     * return book with id in param
-     * @param id id of book
-     */
-    const getBookByID = async (id: number) => {
-        return loadedBooks.find(v => v.ID === id) || await fetchBookByID(id)
-    }
-
-    /**
      * return books with ids in param
      * @param ids array of ids of book
      */
     // Сделать нормальный запрос
     const fetchBooksByIDs = async (ids: number[]) => {
-        const params = ids.join(',')
-        const responce = await $fetch<IBook[]>(`/api/books/${params}`, {
+        const responce = await $fetch<IBook[]>('/api/books/**', {
+            params: {
+                ids,
+            },
             onResponseError: (ctx) => {
                 throw new Error(String(ctx))
             },
@@ -62,6 +41,14 @@ export const useBooks = defineStore('books', () => {
             return filteredBooks
         }
     }
+    /**
+     * return book with id in param
+     * @param id id of book
+     */
+    const getBookByID = async (id: number) => {
+        return (await getBooksByIDs([id]))[0]
+    }
+
     /**
      * calls getBooksByIDs with ids of books by this author
      * @returns array of books by this author
