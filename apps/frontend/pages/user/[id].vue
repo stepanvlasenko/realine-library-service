@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import type { IBook, IUser, ListVariant } from '@types'
+import { computed } from '@vue/reactivity'
 import { useScssBreakpoints } from '@/compasables/useScssBreakpoints'
 
 const books: IBook[] = []
@@ -22,20 +23,13 @@ for (let i = 0; i < 5; i++) {
         updatedAt: new Date(0),
     })
 }
+const thisUserID = +useRoute().params.id
 
-const user: IUser = {
-    ID: 0,
-    role: 'user',
-    username: 'Username',
-    birthday: new Date(0),
-    avatarURL: '/images/test-book.jpg',
-    email: 'Reyden732@gmail.com',
-    interests: ['horror', 'fantasy'],
-    readedBooksID: [0, 1, 2],
-    favoritesID: [0, 1, 2],
-    createdAt: new Date(0),
-    updatedAt: new Date(0),
-}
+const user = await $fetch<IUser>('/api/users/**', {
+    params: {
+        id: thisUserID,
+    },
+})
 const breakpoints = useScssBreakpoints()
 
 const listVariant = computed<ListVariant>(() => {
@@ -44,7 +38,10 @@ const listVariant = computed<ListVariant>(() => {
     return isDesktop ? 'list' : 'slider'
 })
 
-const formatBirthday = (date: Date): string => `${date.getDate()}.${date.getMonth()}.${date.getFullYear()}`
+const formatBirthday = (rawDate: Date): string => {
+    const date: Date = new Date(rawDate)
+    return `${date.getDate()}.${date.getMonth()}.${date.getFullYear()}`
+}
 </script>
 
 <template>
