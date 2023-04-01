@@ -5,7 +5,24 @@ import { useBooks } from '../../stores/books'
 
 const thisBookID = +useRoute().params.id
 
-const book: IBook = await useBooks().getBookByID(thisBookID)
+// const book: IBook = await useBooks().getBookByID(thisBookID)
+const book: IBook = {
+    ID: 0,
+    name: 'Name',
+    ISBN: 'ISBN',
+    authorID: 0,
+    publisherID: 0,
+    description: 'description lorem ipsum description lorem ipsum description lorem ipsum description lorem ipsum description lorem ipsum description lorem ipsumdescription lorem ipsumdescription lorem ipsumdescription lorem ipsumdescription lorem ipsum',
+    genresID: [0, 1, 2],
+    reviewsID: [0, 1, 2],
+    rating: 4.5,
+    coverImageURL: '/images/test-book.jpg',
+    keywords: ['book'],
+    publishDate: new Date(0),
+    fileURL: 'string',
+    createdAt: new Date(0),
+    updatedAt: new Date(0),
+}
 const author = await useAuthors().getAuthorByID(book.authorID)
 const genres = 'abc def ghi'
 

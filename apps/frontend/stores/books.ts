@@ -1,22 +1,19 @@
 import { defineStore } from 'pinia'
-import type { IBook } from '@types'
+import type { Book } from '@types'
 import { useAuthors } from './authors'
 
 export const useBooks = defineStore('books', () => {
-    const loadedBooks: IBook[] = []
+    const loadedBooks: Book[] = []
 
     /**
      * return books with ids in param
      * @param ids array of ids of book
      */
     // Сделать нормальный запрос
-    const fetchBooksByIDs = async (ids: number[]) => {
-        const responce = await $fetch<IBook[]>('/api/books/**', {
+    const fetchBooksByIds = async (ids: string[]) => {
+        const responce = await $fetch<Book[]>('/api/books/**', {
             params: {
                 ids,
-            },
-            onResponseError: (ctx) => {
-                throw new Error(String(ctx))
             },
         })
         loadedBooks.push(...responce)
@@ -27,15 +24,15 @@ export const useBooks = defineStore('books', () => {
      * return books with ids in param
      * @param ids array of ids of book
      */
-    const getBooksByIDs = async (ids: number[]) => {
-        const filteredBooks = loadedBooks.filter(v => ids.includes(v.ID))
+    const getBooksByIds = async (ids: string[]) => {
+        const filteredBooks = loadedBooks.filter(v => ids.includes(v.id))
         if (filteredBooks.length === 0) {
-            return await fetchBooksByIDs(ids)
+            return await fetchBooksByIds(ids)
         }
         else if (filteredBooks.length !== ids.length) {
-            const foundIDs = filteredBooks.map(v => v.ID)
-            const unfoundIDs = ids.filter(v => !foundIDs.includes(v))
-            return [...filteredBooks, ...(await fetchBooksByIDs(unfoundIDs))]
+            const foundIds = filteredBooks.map(v => v.id)
+            const unfoundIds = ids.filter(v => !foundIds.includes(v))
+            return [...filteredBooks, ...(await fetchBooksByIds(unfoundIds))]
         }
         else {
             return filteredBooks
@@ -45,25 +42,25 @@ export const useBooks = defineStore('books', () => {
      * return book with id in param
      * @param id id of book
      */
-    const getBookByID = async (id: number) => {
-        return (await getBooksByIDs([id]))[0]
+    const getBookById = async (id: string) => {
+        return (await getBooksByIds([id]))[0]
     }
 
     /**
      * calls getBooksByIDs with ids of books by this author
      * @returns array of books by this author
      */
-    const getBooksByAuthorID = async (authorID: number) => {
-        const author = await useAuthors().getAuthorByID(authorID)
-        return getBooksByIDs(author.writtenBooksID)
+    const getBooksByAuthorId = async (authorId: string) => {
+        const author = await useAuthors().getAuthorByID(authorId)
+        return getBooksByIds(author.writtenBooksID)
     }
     /**
      * @param book book which you want to get similar
      * @returns books which similar to this book
      */
     // URL кал
-    const fetchSimilarBooksByBook = async (book: IBook) => {
-        const responce = await $fetch<IBook[]>(`api/similarbooks/${book.ID}`, {
+    const fetchSimilarBooksByBook = async (book: Book) => {
+        const responce = await $fetch<Book[]>(`api/similarbooks/${book.ID}`, {
             onResponseError: (ctx) => {
                 throw new Error(String(ctx))
             },
@@ -72,12 +69,12 @@ export const useBooks = defineStore('books', () => {
     }
 
     const fetchBooksByFirstSymbol = async (sym: string) => {
-        const responce = await $fetch<IBook[]>(`api/searchbooks/${sym}`, {
+        const responce = await $fetch<Book[]>(`api/searchbooks/${sym}`, {
             onResponseError: (ctx) => {
                 throw new Error(String(ctx))
             },
         })
         return responce
     }
-    return { loadedBooks, getBookByID, getBooksByIDs, getBooksByAuthorID, fetchSimilarBooksByBook, fetchBooksByFirstSymbol }
+    return { loadedBooks, getBookById, getBooksByIds, getBooksByAuthorId, fetchSimilarBooksByBook, fetchBooksByFirstSymbol }
 })
