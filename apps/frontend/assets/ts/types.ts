@@ -1,7 +1,7 @@
 // GLOBAL TODO: CHANGE "ID" TO "id"
 
 export {
-    Book, Author, User,
+    Book, Author, User, UserRole
 } from '@prisma/client'
 
 // /**

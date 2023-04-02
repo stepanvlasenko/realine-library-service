@@ -1,15 +1,15 @@
 <script setup lang="ts">
-import type { IBook } from '@types'
+import type { Book } from '@types'
 
-const myBook: IBook = {
-    ID: 0,
+const myBook: Book = {
+    id: '0',
     name: 'name',
     ISBN: 'ISBN',
-    authorID: 0,
-    publisherID: 0,
+    authorId: '0',
+    publisherId: '0',
     description: 'description',
-    genresID: [0, 1, 2],
-    reviewsID: [0, 1, 2],
+    genresIds: ['0', '1', '2'],
+    reviewsIds: ['0', '1', '2'],
     rating: 4.5,
     coverImageURL: '/images/test-book.jpg',
     keywords: ['book'],
@@ -38,3 +38,4 @@ const myBook: IBook = {
     background-color: black;
 }
 </style>
+''

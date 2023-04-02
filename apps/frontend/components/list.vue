@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import type { PropType } from 'vue'
-import type { IBook, ListVariant } from '@types'
+import type { Book, ListVariant } from '@types'
 
 const { books } = defineProps({
     books: {
-        type: Array<IBook>,
+        type: Array<Book>,
         required: true,
     },
     title: {
@@ -33,7 +33,7 @@ const itemsInRow = computed(() => {
         <div v-if="variant === 'list'" class="list">
             <div
                 v-for="book of books"
-                :key="book.ID"
+                :key="book.id"
                 class="list__item"
             >
                 <Book

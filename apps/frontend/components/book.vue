@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { PropType } from 'vue'
 
-import type { BookVariant, IBook } from '@types'
+import type { BookVariant, Book } from '@types'
 
 defineProps({
     variant: {
@@ -9,7 +9,7 @@ defineProps({
         required: true,
     },
     book: {
-        type: Object as PropType<IBook>,
+        type: Object as PropType<Book>,
         required: true,
     },
 })
@@ -48,7 +48,7 @@ const formatDescription = (desc: string, nOfSymbols: number): string => {
             <p class="book__description">{{ formatDescription(book.description, 100) }}</p>
             <div class="book__details">
                 <Rating :rating="book.rating" />
-                <BaseLink text="Подробнее" :url="`/book/${book.ID}`"/>
+                <BaseLink text="Подробнее" :url="`/book/${book.id}`"/>
             </div>
         </div>
     </div>

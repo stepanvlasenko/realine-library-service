@@ -1,19 +1,19 @@
 <script setup lang="ts">
-import type { IBook, IUser, ListVariant } from '@types'
+import type { Book, User, ListVariant } from '@types'
 import { computed } from '@vue/reactivity'
 import { useScssBreakpoints } from '@/compasables/useScssBreakpoints'
 
-const books: IBook[] = []
+const books: Book[] = []
 for (let i = 0; i < 5; i++) {
     books.push({
-        ID: 0,
-        name: 'Name',
+        id: '0',
+        name: 'name',
         ISBN: 'ISBN',
-        authorID: 0,
-        publisherID: 0,
-        description: 'description lorem ipsum description lorem ipsum description lorem ipsum description lorem ipsum description lorem ipsum description lorem ipsumdescription lorem ipsumdescription lorem ipsumdescription lorem ipsumdescription lorem ipsum',
-        genresID: [0, 1, 2],
-        reviewsID: [0, 1, 2],
+        authorId: '0',
+        publisherId: '0',
+        description: 'description',
+        genresIds: ['0', '1', '2'],
+        reviewsIds: ['0', '1', '2'],
         rating: 4.5,
         coverImageURL: '/images/test-book.jpg',
         keywords: ['book'],
@@ -23,13 +23,19 @@ for (let i = 0; i < 5; i++) {
         updatedAt: new Date(0),
     })
 }
-const thisUserID = +useRoute().params.id
+const userID = useRoute().params.id
 
-const user = await $fetch<IUser>('/api/users/**', {
+const user = await $fetch<User>('/api/users/**', {
     params: {
-        id: thisUserID,
+        id: userID,
     },
 })
+
+const formatBirthday = (rawDate: Date): string => {
+    const date: Date = new Date(rawDate)
+    return `${date.getDate()}.${date.getMonth()}.${date.getFullYear()}`
+}
+
 const breakpoints = useScssBreakpoints()
 
 const listVariant = computed<ListVariant>(() => {
@@ -37,11 +43,6 @@ const listVariant = computed<ListVariant>(() => {
 
     return isDesktop ? 'list' : 'slider'
 })
-
-const formatBirthday = (rawDate: Date): string => {
-    const date: Date = new Date(rawDate)
-    return `${date.getDate()}.${date.getMonth()}.${date.getFullYear()}`
-}
 </script>
 
 <template>

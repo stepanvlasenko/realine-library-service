@@ -47,12 +47,12 @@ export const useBooks = defineStore('books', () => {
     }
 
     /**
-     * calls getBooksByIDs with ids of books by this author
+     * calls getBooksByIds with ids of books by this author
      * @returns array of books by this author
      */
     const getBooksByAuthorId = async (authorId: string) => {
-        const author = await useAuthors().getAuthorByID(authorId)
-        return getBooksByIds(author.writtenBooksID)
+        const author = await useAuthors().getAuthorById(authorId)
+        return getBooksByIds(author.writtenBooksIds)
     }
     /**
      * @param book book which you want to get similar
@@ -60,7 +60,7 @@ export const useBooks = defineStore('books', () => {
      */
     // URL кал
     const fetchSimilarBooksByBook = async (book: Book) => {
-        const responce = await $fetch<Book[]>(`api/similarbooks/${book.ID}`, {
+        const responce = await $fetch<Book[]>(`api/similarbooks/${book.id}`, {
             onResponseError: (ctx) => {
                 throw new Error(String(ctx))
             },
@@ -69,11 +69,7 @@ export const useBooks = defineStore('books', () => {
     }
 
     const fetchBooksByFirstSymbol = async (sym: string) => {
-        const responce = await $fetch<Book[]>(`api/searchbooks/${sym}`, {
-            onResponseError: (ctx) => {
-                throw new Error(String(ctx))
-            },
-        })
+        const responce = await $fetch<Book[]>(`api/searchbooks/${sym}`)
         return responce
     }
     return { loadedBooks, getBookById, getBooksByIds, getBooksByAuthorId, fetchSimilarBooksByBook, fetchBooksByFirstSymbol }

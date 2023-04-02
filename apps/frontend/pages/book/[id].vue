@@ -1,20 +1,20 @@
 <script lang="ts" setup>
-import type { IBook } from '@types'
+import type { Book } from '@types'
 import { useAuthors } from '../../stores/authors'
 import { useBooks } from '../../stores/books'
 
 const thisBookID = +useRoute().params.id
 
 // const book: IBook = await useBooks().getBookByID(thisBookID)
-const book: IBook = {
-    ID: 0,
-    name: 'Name',
+const book: Book = {
+    id: '0',
+    name: 'name',
     ISBN: 'ISBN',
-    authorID: 0,
-    publisherID: 0,
-    description: 'description lorem ipsum description lorem ipsum description lorem ipsum description lorem ipsum description lorem ipsum description lorem ipsumdescription lorem ipsumdescription lorem ipsumdescription lorem ipsumdescription lorem ipsum',
-    genresID: [0, 1, 2],
-    reviewsID: [0, 1, 2],
+    authorId: '0',
+    publisherId: '0',
+    description: 'description',
+    genresIds: ['0', '1', '2'],
+    reviewsIds: ['0', '1', '2'],
     rating: 4.5,
     coverImageURL: '/images/test-book.jpg',
     keywords: ['book'],
@@ -23,21 +23,21 @@ const book: IBook = {
     createdAt: new Date(0),
     updatedAt: new Date(0),
 }
-const author = await useAuthors().getAuthorByID(book.authorID)
+const author = await useAuthors().getAuthorById(book.authorId)
 const genres = 'abc def ghi'
 
-const similarBooks: IBook[] = []
-const anotherBooksByThisAuthor: IBook[] = []
+const similarBooks: Book[] = []
+const anotherBooksByThisAuthor: Book[] = []
 for (let i = 0; i < 5; i++) {
     similarBooks.push({
-        ID: 0,
-        name: 'Name',
+        id: '0',
+        name: 'name',
         ISBN: 'ISBN',
-        authorID: 0,
-        publisherID: 0,
-        description: 'description lorem ipsum description lorem ipsum description lorem ipsum description lorem ipsum description lorem ipsum description lorem ipsumdescription lorem ipsumdescription lorem ipsumdescription lorem ipsumdescription lorem ipsum',
-        genresID: [0, 1, 2],
-        reviewsID: [0, 1, 2],
+        authorId: '0',
+        publisherId: '0',
+        description: 'description',
+        genresIds: ['0', '1', '2'],
+        reviewsIds: ['0', '1', '2'],
         rating: 4.5,
         coverImageURL: '/images/test-book.jpg',
         keywords: ['book'],
@@ -47,14 +47,14 @@ for (let i = 0; i < 5; i++) {
         updatedAt: new Date(0),
     })
     anotherBooksByThisAuthor.push({
-        ID: 0,
-        name: 'Name',
+        id: '0',
+        name: 'name',
         ISBN: 'ISBN',
-        authorID: 0,
-        publisherID: 0,
-        description: 'description lorem ipsum description lorem ipsum description lorem ipsum description lorem ipsum description lorem ipsum description lorem ipsumdescription lorem ipsumdescription lorem ipsumdescription lorem ipsumdescription lorem ipsum',
-        genresID: [0, 1, 2],
-        reviewsID: [0, 1, 2],
+        authorId: '0',
+        publisherId: '0',
+        description: 'description',
+        genresIds: ['0', '1', '2'],
+        reviewsIds: ['0', '1', '2'],
         rating: 4.5,
         coverImageURL: '/images/test-book.jpg',
         keywords: ['book'],
@@ -92,7 +92,8 @@ const formatCreatedDate = (rawDate: Date): string => {
             </div>
         </div>
         <div class="read">
-            <BaseLink class="read__link" text="Читать" :url="`/book/${book.ID}`" />
+            <!-- Неправда (юрл не туда ведет) -->
+            <BaseLink class="read__link" text="Читать" :url="`/book/${book.id}`" />
         </div>
         <div class="another">
             <List title="Похожие книги" :books="similarBooks" variant="slider" />

@@ -34,3 +34,6 @@ Locally preview production build:
 ```bash
 npm run preview
 ```
+DEV PREPARING (WHEN MOVE TO NEW DEVICE)
+npm i
+cd apps -> cd frontend -> npx prisma generate
