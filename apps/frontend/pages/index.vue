@@ -18,12 +18,15 @@ const myBook: Book = {
     createdAt: new Date(0),
     updatedAt: new Date(0),
 }
+
+const res = await $fetch('/api/test/**')
+console.log(res)
 </script>
 
 <template>
     <div>
-        <BaseLink text="Юзер" url="/user/0" />
-        <BaseLink text="Книга" url="/book/0" />
+        <!-- <BaseLink text="Юзер" url="/user/0" />
+        <BaseLink text="Книга" url="/book/0" /> -->
     </div>
 </template>
 

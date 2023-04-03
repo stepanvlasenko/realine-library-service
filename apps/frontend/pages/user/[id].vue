@@ -23,11 +23,11 @@ for (let i = 0; i < 5; i++) {
         updatedAt: new Date(0),
     })
 }
-const userID = useRoute().params.id
+const userId = useRoute().params.id
 
 const user = await $fetch<User>('/api/users/**', {
     params: {
-        id: userID,
+        id: userId,
     },
 })
 

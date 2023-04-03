@@ -34,9 +34,9 @@ model User {
     birthday DateTime
     role UserRole
     // Что-то с жанрами
-    interestsIds String[]
-    readedBooksIds String[] @db.ObjectId
-    favoritesIds String[] @db.ObjectId
+    // interestsIds String[] 
+    // readedBooksIds String[] @db.ObjectId
+    // favoritesIds String[] @db.ObjectId
     email String
     avatarURL String
     password String
