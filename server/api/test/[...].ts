@@ -5,5 +5,5 @@ const prisma = new PrismaClient()
 
 export default defineEventHandler(async () => {
     await db.preventDatabase()
-    return await prisma.user.findMany()
+    return await prisma.book.findMany()
 })
