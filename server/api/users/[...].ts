@@ -1,4 +1,4 @@
-// import { getUserById } from '../../database'
+import { getUserById } from '../../database'
 
 // // const users: IUser[] = [
 //     // {
@@ -42,14 +42,14 @@
 // //     },
 // // ]
 
-// export default defineEventHandler(async (event) => {
-//     const query = getQuery(event)
+export default defineEventHandler(async (event) => {
+    const query = getQuery(event)
 
-//     if (query.id && typeof query.id === 'string') {
-//         if (getMethod(event) === 'GET')
-//             return await getUserById(query.id)
-//     }
-//     else {
-//         createError('id must be passed or id must be single, not array')
-//     }
-// })
+    if (query.id && typeof query.id === 'string') {
+        if (getMethod(event) === 'GET')
+            return await getUserById(query.id)
+    }
+    else {
+        throw new Error('id must be passed or id must be single, not array')
+    }
+})

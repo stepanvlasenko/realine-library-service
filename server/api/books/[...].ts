@@ -1,5 +1,5 @@
-// import { isArray } from '@vue/shared'
-// import { getBooksByIds } from '../../database'
+import { isArray } from '@vue/shared'
+import { getBooksByIds } from '../../database'
 // // const books: IBook[] = [
 // //     {
 // //         ID: 0,
@@ -54,16 +54,16 @@
 // //     },
 // // ]
 
-// export default defineEventHandler(async (event) => {
-//     const query = getQuery(event)
+export default defineEventHandler(async (event) => {
+    const query = getQuery(event)
 
-//     if (query.ids && isArray(query.ids)) {
-//         const ids = query.ids.map(v => '' + v)
+    if (query.ids && isArray(query.ids)) {
+        const ids = query.ids.map(v => '' + v)
 
-//         if (getMethod(event) === 'GET')
-//             return await getBooksByIds(ids)
-//     }
-//     else {
-//         createError('ids must be passed or ids must be array')
-//     }
-// })
+        if (getMethod(event) === 'GET')
+            return await getBooksByIds(ids)
+    }
+    else {
+        createError('ids must be passed or ids must be array')
+    }
+})

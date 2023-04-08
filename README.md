@@ -57,7 +57,10 @@ To build all apps and packages, run the following command:
 ```
 pnpm run build
 ```
-DEV PREPARING (WHEN MOVE TO NEW DEVICE)
+### DEV PREPARING (WHEN MOVE TO NEW DEVICE)
 npm i
 npx prisma generate
 Not sure, but |=> npx prisma migrate dev --name init
+
+### Add new records to db
+npx prisma studio

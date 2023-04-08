@@ -1,26 +1,6 @@
 <script setup lang="ts">
-import type { Book } from '@types'
-
-// const myBook: Book = {
-//     id: '0',
-//     name: 'name',
-//     ISBN: 'ISBN',
-//     authorId: '0',
-//     publisherId: '0',
-//     description: 'description',
-//     genresIds: ['0', '1', '2'],
-//     reviewsIds: ['0', '1', '2'],
-//     rating: 4.5,
-//     coverImageURL: '/images/test-book.jpg',
-//     keywords: ['book'],
-//     publishDate: new Date(0),
-//     fileURL: 'string',
-//     createdAt: new Date(0),
-//     updatedAt: new Date(0),
-// }
-
-const res = await $fetch('/api/test/**')
-console.log(res)
+// const res = await $fetch('/api/test/**')
+// console.log(res)
 </script>
 
 <template>

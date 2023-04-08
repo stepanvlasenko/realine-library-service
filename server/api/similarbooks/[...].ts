@@ -1,5 +1,4 @@
-// // import type { IBook } from '@types'
-// import { getSimilarBooksById } from '../../database'
+import { getSimilarBooksById } from '../../database'
 
 // // const books: IBook[] = [
 // //     {
@@ -55,16 +54,16 @@
 // //     },
 // // ]
 
-// // Ещё надо сделать чтобы сортировалось по убыванию кол-ва совпадений
+// Ещё надо сделать чтобы сортировалось по убыванию кол-ва совпадений
 
-// export default defineEventHandler((event) => {
-//     const query = getQuery(event)
+export default defineEventHandler((event) => {
+    const query = getQuery(event)
 
-//     if (query.id && typeof query.id === 'string') {
-//         if (getMethod(event) === 'GET')
-//             return getSimilarBooksById(query.id)
-//     }
-//     else {
-//         throw new Error('ID param must be passed')
-//     }
-// })
+    if (query.id && typeof query.id === 'string') {
+        if (getMethod(event) === 'GET')
+            return getSimilarBooksById(query.id)
+    }
+    else {
+        throw new Error('id must be passed or id must be single, not array')
+    }
+})

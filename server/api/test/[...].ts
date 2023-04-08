@@ -4,6 +4,6 @@ import * as db from '../../database'
 const prisma = new PrismaClient()
 
 export default defineEventHandler(async () => {
-    await db.preventDatabase()
+    // await db.preventDatabase()
     return await prisma.book.findMany()
 })

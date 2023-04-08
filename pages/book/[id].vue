@@ -1,77 +1,60 @@
 <script lang="ts" setup>
-import type { Book } from '@types'
+import type { IBook } from '@types'
 import { useAuthors } from '../../stores/authors'
 import { useBooks } from '../../stores/books'
 
-const thisBookID = +useRoute().params.id
+const bookId = '' + useRoute().params.id
 
-// const book: IBook = await useBooks().getBookByID(thisBookID)
-const book: Book = {
-    id: '0',
-    name: 'name',
-    ISBN: 'ISBN',
-    authorId: '0',
-    publisherId: '0',
-    description: 'description',
-    genresIds: ['0', '1', '2'],
-    reviewsIds: ['0', '1', '2'],
-    rating: 4.5,
-    coverImageURL: '/images/test-book.jpg',
-    keywords: ['book'],
-    publishDate: new Date(0),
-    fileURL: 'string',
-    createdAt: new Date(0),
-    updatedAt: new Date(0),
-}
+const book = await useBooks().getBookById(bookId)
 const author = await useAuthors().getAuthorById(book.authorId)
-const genres = 'abc def ghi'
+const similarBooks = await useBooks().fetchSimilarBooksByBook(book.id)
+const anotherBooksByThisAuthor = await useBooks().getBooksByIds(author.writtenBooksIds)
 
-const similarBooks: Book[] = []
-const anotherBooksByThisAuthor: Book[] = []
-for (let i = 0; i < 5; i++) {
-    similarBooks.push({
-        id: '0',
-        name: 'name',
-        ISBN: 'ISBN',
-        authorId: '0',
-        publisherId: '0',
-        description: 'description',
-        genresIds: ['0', '1', '2'],
-        reviewsIds: ['0', '1', '2'],
-        rating: 4.5,
-        coverImageURL: '/images/test-book.jpg',
-        keywords: ['book'],
-        publishDate: new Date(0),
-        fileURL: 'string',
-        createdAt: new Date(0),
-        updatedAt: new Date(0),
-    })
-    anotherBooksByThisAuthor.push({
-        id: '0',
-        name: 'name',
-        ISBN: 'ISBN',
-        authorId: '0',
-        publisherId: '0',
-        description: 'description',
-        genresIds: ['0', '1', '2'],
-        reviewsIds: ['0', '1', '2'],
-        rating: 4.5,
-        coverImageURL: '/images/test-book.jpg',
-        keywords: ['book'],
-        publishDate: new Date(0),
-        fileURL: 'string',
-        createdAt: new Date(0),
-        updatedAt: new Date(0),
-    })
-}
+// dev
+const genres = 'abc def ghi'
+// const similarBooks: IBook = []
+// const anotherBooksByThisAuthor: IBook[] = []
+// for (let i = 0; i < 5; i++) {
+//     similarBooks.push({
+//         id: '0',
+//         name: 'name',
+//         ISBN: 'ISBN',
+//         authorId: '0',
+//         publisherId: '0',
+//         description: 'description',
+//         genresIds: ['0', '1', '2'],
+//         reviewsIds: ['0', '1', '2'],
+//         rating: 4.5,
+//         coverImageURL: '/images/test-book.jpg',
+//         keywords: ['book'],
+//         publishDate: new Date(0),
+//         fileURL: 'string',
+//         createdAt: new Date(0),
+//         updatedAt: new Date(0),
+//     })
+//     anotherBooksByThisAuthor.push({
+//         id: '0',
+//         name: 'name',
+//         ISBN: 'ISBN',
+//         authorId: '0',
+//         publisherId: '0',
+//         description: 'description',
+//         genresIds: ['0', '1', '2'],
+//         reviewsIds: ['0', '1', '2'],
+//         rating: 4.5,
+//         coverImageURL: '/images/test-book.jpg',
+//         keywords: ['book'],
+//         publishDate: new Date(0),
+//         fileURL: 'string',
+//         createdAt: new Date(0),
+//         updatedAt: new Date(0),
+//     })
+// }
 
 const formatCreatedDate = (rawDate: Date): string => {
     const date: Date = new Date(rawDate)
     return `${date.getFullYear()}`
 }
-// Не делай этого...
-// const similarBooks = await useBooks().fetchSimilarBooksByBook(book)
-// const anotherBooksByThisAuthor = useBooks().getBooksByAuthorID(author.ID)
 </script>
 
 <template>

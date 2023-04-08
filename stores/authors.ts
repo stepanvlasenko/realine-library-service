@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia'
-import type { Author as PrismaAuthor } from '@types'
+import type { IAuthor } from '@types'
 
-class Author implements PrismaAuthor {
+class Author implements IAuthor {
     constructor(
         public id: string,
         public name: string,
@@ -22,11 +22,7 @@ class Author implements PrismaAuthor {
 // ТЫ НЕ ЛОВИШЬ ОШИБКИ!!! А ЧТО ЕСЛИ НЕТ ТАКОГО АВТОРА!!!!*???!?!?!??! С КНИГАМИ ТОЖЕ САМОЕ
 // В реквесте я не привожу респонс к классу автор
 export const useAuthors = defineStore('authors', () => {
-    const loadedAuthors: Author[] = [
-        new Author('0', 'Александр', 'Пушкин', 'Вообще-то Дюма', ['0'], new Date(), new Date(), 'Сергеевич'),
-        new Author('1', 'Григорий', 'Мельник', 'Лалка', ['1'], new Date(), new Date(), 'Папочка'),
-        new Author('2', 'Николай', 'Гоголь', 'Не горький', ['2'], new Date(), new Date(), 'Васильевич'),
-    ]
+    const loadedAuthors: Author[] = []
 
     /**
      * request and add in loadedAuthors
@@ -34,14 +30,14 @@ export const useAuthors = defineStore('authors', () => {
      * @returns author with this id
      */
     const fetchAuthorById = async (id: string) => {
-        const responce = await $fetch<Author>('/api/authors/**', {
+        const responce = await $fetch<IAuthor>('/api/authors/**', {
             params: {
                 id,
             },
-
         })
-        loadedAuthors.push(responce)
-        return responce
+        const author = new Author(responce.id, responce.name, responce.surname, responce.description, responce.writtenBooksIds, responce.birthday, responce.dayOfDeath, responce.secondName)
+        loadedAuthors.push(author)
+        return author
     }
 
     /**
@@ -53,5 +49,5 @@ export const useAuthors = defineStore('authors', () => {
         return loadedAuthors.find(v => v.id === id) || await fetchAuthorById(id)
     }
 
-    return { loadedAuthors, getAuthorById }
+    return { getAuthorById }
 })

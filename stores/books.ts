@@ -1,9 +1,9 @@
 import { defineStore } from 'pinia'
-import type { Book } from '@types'
+import type { IBook } from '@types'
 import { useAuthors } from './authors'
 
 export const useBooks = defineStore('books', () => {
-    const loadedBooks: Book[] = []
+    const loadedBooks: IBook[] = []
 
     /**
      * return books with ids in param
@@ -11,7 +11,7 @@ export const useBooks = defineStore('books', () => {
      */
     // Сделать нормальный запрос
     const fetchBooksByIds = async (ids: string[]) => {
-        const responce = await $fetch<Book[]>('/api/books/**', {
+        const responce = await $fetch<IBook[]>('/api/books/**', {
             params: {
                 ids,
             },
@@ -59,18 +59,18 @@ export const useBooks = defineStore('books', () => {
      * @returns books which similar to this book
      */
     // URL кал
-    const fetchSimilarBooksByBook = async (book: Book) => {
-        const responce = await $fetch<Book[]>(`api/similarbooks/${book.id}`, {
-            onResponseError: (ctx) => {
-                throw new Error(String(ctx))
-            },
+    const fetchSimilarBooksByBook = async (id: string) => {
+        const responce = await $fetch<IBook[]>(`api/similarbooks/**`, {
+            params: {
+                id,
+            }
         })
         return responce
     }
 
     const fetchBooksByFirstSymbol = async (sym: string) => {
-        const responce = await $fetch<Book[]>(`api/searchbooks/${sym}`)
+        const responce = await $fetch<IBook[]>(`api/searchbooks/${sym}`)
         return responce
     }
-    return { loadedBooks, getBookById, getBooksByIds, getBooksByAuthorId, fetchSimilarBooksByBook, fetchBooksByFirstSymbol }
+    return { getBookById, getBooksByIds, getBooksByAuthorId, fetchSimilarBooksByBook, fetchBooksByFirstSymbol }
 })
