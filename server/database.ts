@@ -86,3 +86,26 @@ export const getSimilarBooksById = async (id: string, minCrossingCount = 2) => {
 
     return result
 }
+
+// Хочу приоритетно отправлять книги, у которых queryString в начале названия. 
+// Есть вариант пробегать по всем книгам 2 раза. Сначала те, у которых в совпадание в начале (startWith). Потом те, у которых просто есть. Затем делать уникальные функцией arraysCrossing
+// Есть же вариант для пробегда сложности n^2, думаю его стоит отмести
+
+export const searchBooks = async (queryString: string, responceLength: number) => {
+    await prisma.$connect()
+
+    const rawBooks = await prisma.book.findMany()
+
+    await prisma.$disconnect()
+
+    const booksWhichStartWith = rawBooks.filter((v) => {
+        return v.name.toLowerCase().startsWith(queryString.toLowerCase())
+    })
+
+    const booksWhichIncludeAndNotStartsWith = (booksWhichStartWith.length < responceLength ?
+        rawBooks.filter((v) => {
+            return v.name.toLowerCase().includes(queryString.toLowerCase()) && !v.name.toLowerCase().startsWith(queryString.toLowerCase())
+        }) : [])
+    
+    return [...booksWhichStartWith, ...booksWhichIncludeAndNotStartsWith].slice(0, responceLength)
+}
