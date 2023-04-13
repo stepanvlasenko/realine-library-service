@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import type { Book } from '@types'
+import type { IBook } from '@types'
 import { useSwiper } from '@/compasables/useSwiper'
 
 const props = withDefaults(defineProps<{
-    books: Book[]
+    books: IBook[]
     itemsInRow?: number
 }>(), {
     itemsInRow: 1,
@@ -24,8 +24,8 @@ const {
     selectPrevSlide,
 } = useSwiper(books.value.length, itemsInRow)
 
-const visibleBooks = computed<Map<Book, boolean>>(() => {
-    return new Map<Book, boolean>(books.value.map((book, index) => {
+const visibleBooks = computed<Map<IBook, boolean>>(() => {
+    return new Map<IBook, boolean>(books.value.map((book, index) => {
         return [book, visibleSlides.value.includes(index)]
     }))
 })

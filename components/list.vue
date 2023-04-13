@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import type { PropType } from 'vue'
-import type { Book, ListVariant } from '@types'
+import type { IBook, ListVariant } from '@types'
 
 const { books } = defineProps({
     books: {
-        type: Array<Book>,
+        type: Array<IBook>,
         required: true,
     },
     title: {

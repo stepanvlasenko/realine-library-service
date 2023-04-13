@@ -57,13 +57,13 @@ import { getBooksByIds } from '../../database'
 export default defineEventHandler(async (event) => {
     const query = getQuery(event)
 
-    if (query.ids && isArray(query.ids)) {
-        const ids = query.ids.map(v => '' + v)
-
+    if (query.ids) {
+        const ids = isArray(query.ids) ? query.ids.map(v => '' + v) : ['' + query.ids]
+    
         if (getMethod(event) === 'GET')
             return await getBooksByIds(ids)
     }
     else {
-        createError('ids must be passed or ids must be array')
+        throw new Error('ids must be passed or ids must be array')
     }
 })

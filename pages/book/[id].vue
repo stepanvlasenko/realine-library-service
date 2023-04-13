@@ -7,7 +7,7 @@ const bookId = '' + useRoute().params.id
 
 const book = await useBooks().getBookById(bookId)
 const author = await useAuthors().getAuthorById(book.authorId)
-const similarBooks = await useBooks().fetchSimilarBooksByBook(book.id)
+const similarBooks = await useBooks().fetchSimilarBooksById(book.id)
 const anotherBooksByThisAuthor = await useBooks().getBooksByIds(author.writtenBooksIds)
 
 // dev
@@ -32,6 +32,7 @@ const genres = 'abc def ghi'
 //         createdAt: new Date(0),
 //         updatedAt: new Date(0),
 //     })
+// }
 //     anotherBooksByThisAuthor.push({
 //         id: '0',
 //         name: 'name',

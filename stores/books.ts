@@ -59,18 +59,13 @@ export const useBooks = defineStore('books', () => {
      * @returns books which similar to this book
      */
     // URL кал
-    const fetchSimilarBooksByBook = async (id: string) => {
-        const responce = await $fetch<IBook[]>(`api/similarbooks/**`, {
+    const fetchSimilarBooksById = async (id: string) => {
+        const responce = await $fetch<IBook[]>('/api/similarbooks/**', {
             params: {
-                id,
+                id: id,
             }
         })
         return responce
     }
-
-    const fetchBooksByFirstSymbol = async (sym: string) => {
-        const responce = await $fetch<IBook[]>(`api/searchbooks/${sym}`)
-        return responce
-    }
-    return { getBookById, getBooksByIds, getBooksByAuthorId, fetchSimilarBooksByBook, fetchBooksByFirstSymbol }
+    return { getBookById, getBooksByIds, getBooksByAuthorId, fetchSimilarBooksById}
 })
