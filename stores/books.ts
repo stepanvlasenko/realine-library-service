@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia'
-import type { IBook } from '@types'
+import type { IBook, InputBook } from '@types'
 import { useAuthors } from './authors'
 
 export const useBooks = defineStore('books', () => {
@@ -12,6 +12,7 @@ export const useBooks = defineStore('books', () => {
     // Сделать нормальный запрос
     const fetchBooksByIds = async (ids: string[]) => {
         const responce = await $fetch<IBook[]>('/api/books/**', {
+            method: 'GET',
             params: {
                 ids,
             },
@@ -61,11 +62,21 @@ export const useBooks = defineStore('books', () => {
     // URL кал
     const fetchSimilarBooksById = async (id: string) => {
         const responce = await $fetch<IBook[]>('/api/similarbooks/**', {
+            method: 'GET',
             params: {
                 id: id,
             }
         })
         return responce
     }
-    return { getBookById, getBooksByIds, getBooksByAuthorId, fetchSimilarBooksById}
+
+    const createBook = async (book: InputBook) => {
+        await $fetch('/api/books/**', {
+            method: 'POST',
+            params: {
+                book: book
+            }
+        })
+    }
+    return { getBookById, getBooksByIds, getBooksByAuthorId, fetchSimilarBooksById, createBook}
 })

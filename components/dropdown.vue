@@ -2,17 +2,20 @@
 import { PropType } from 'vue';
 import { IBook } from '@types';
 
-    defineProps({
-        books: {
-            type: Object as PropType<IBook[]>,
-            required: true
-        }
-    })
+defineProps({
+    books: {
+        type: Object as PropType<IBook[]>,
+        required: true
+    }
+})
+
+const emit = defineEmits(['linkClicked'])
+const onLinkClicked = () => emit('linkClicked')
 </script>
 
 <template>
     <div class="dropdown">
-        <DropdownBook v-for="book in books" :key="book.id" :book="book"/>
+        <DropdownBook @link-clicked="onLinkClicked" v-for="book in books" :key="book.id" :book="book"/>
     </div>
 </template>
 
@@ -21,7 +24,6 @@ import { IBook } from '@types';
     .dropdown {
         background-color: map-get(styles.$colors, black);
         border-radius: 10px 20px 5px 40px;
-
         display: flex;
         flex-direction: column;
         gap: 16px;

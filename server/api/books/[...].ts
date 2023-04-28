@@ -1,5 +1,6 @@
 import { isArray } from '@vue/shared'
-import { getBooksByIds } from '../../database'
+import { getBooksByIds, addBook } from '../../database'
+import { InputBook } from '@types'
 // // const books: IBook[] = [
 // //     {
 // //         ID: 0,
@@ -57,13 +58,22 @@ import { getBooksByIds } from '../../database'
 export default defineEventHandler(async (event) => {
     const query = getQuery(event)
 
-    if (query.ids) {
-        const ids = isArray(query.ids) ? query.ids.map(v => '' + v) : ['' + query.ids]
-    
-        if (getMethod(event) === 'GET')
+    if (getMethod(event) === 'GET') {
+        if (query.ids) {
+            const ids = isArray(query.ids) ? query.ids.map(v => '' + v) : ['' + query.ids]
             return await getBooksByIds(ids)
+        } else {
+            throw new Error('ids must be passed or ids must be array')
+        }
     }
-    else {
-        throw new Error('ids must be passed or ids must be array')
+    
+    if (getMethod(event) === 'POST') {
+        if (query.book && typeof query.book === 'string') {
+            const book = JSON.parse(query.book) as InputBook
+            await addBook(book)
+            return 1
+         }else {
+            throw new Error('wrong book was gotten')
+        }
     }
 })

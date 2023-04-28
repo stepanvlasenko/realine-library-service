@@ -1,8 +1,6 @@
-// GLOBAL TODO: CHANGE "ID" TO "id"
-
 export {
     Book as PrismaBook, Author as PrismaAuthor, User as PrismaUser
-} from '@prisma/client'
+} from '@prisma/client' 
 
 /**
  * Interface for IBook. Used on frontend
@@ -12,21 +10,25 @@ export {
 export interface IBook {
     id: string
     name: string
-    ISBN: string
     authorId: string
-    publisherId: string
     description: string
     genresIds: string[]
-    reviewsIds: string[]
     rating: number
-    coverImageURL: string
-    keywords: string[]
+    coverImage: File
     publishDate: Date
-    fileURL: string
+    file: File
     createdAt: Date
     updatedAt: Date
 }
 
+export interface InputBook {
+    name: string
+    authorId: string
+    description: string
+    genresIds: string[]
+    coverImage: File
+    file: File
+}
 /**
  * Interface for User. Used on frontend without password
  *
@@ -54,8 +56,13 @@ export interface IAuthor {
     description: string
     writtenBooksIds: string[]
     birthday: Date
-    dayOfDeath: Date
+    dayOfDeath: Date | null
     secondName: string | null
+}
+
+export interface IGenre {
+    id: string
+    name: string
 }
 
 /**

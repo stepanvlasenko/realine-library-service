@@ -1,4 +1,6 @@
 <script lang="ts" setup>
+import { e } from 'ofetch/dist/error-04138797';
+
 const { url } = defineProps({
     text: {
         type: String,
@@ -9,11 +11,14 @@ const { url } = defineProps({
         required: true,
     },
 })
+
+const emit = defineEmits(['clicked'])
+const onClick = () => emit('clicked')
 const validatedUrl = (url[0] === '/') ? url : `/${url}`
 </script>
 
 <template>
-    <NuxtLink :to="validatedUrl">
+    <NuxtLink :to="validatedUrl" @click="onClick">
         <div class="link">
             <p>{{ text }}</p>
             <NuxtIcon class="arrow" name="arrow" />
