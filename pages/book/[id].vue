@@ -2,6 +2,7 @@
 import type { IBook } from '@types'
 import { useAuthors } from '../../stores/authors'
 import { useBooks } from '../../stores/books'
+import { useClientLinks } from '~/compasables/useClientLinks';
 
 const bookId = '' + useRoute().params.id
 
@@ -10,47 +11,10 @@ const author = await useAuthors().getAuthorById(book.authorId)
 const similarBooks = await useBooks().fetchSimilarBooksById(book.id)
 const anotherBooksByThisAuthor = await useBooks().getBooksByIds(author.writtenBooksIds)
 
+const bookCoverImageLink = useClientLinks().getLink(book.coverImage)
+
 // dev
 const genres = 'abc def ghi'
-// const similarBooks: IBook = []
-// const anotherBooksByThisAuthor: IBook[] = []
-// for (let i = 0; i < 5; i++) {
-//     similarBooks.push({
-//         id: '0',
-//         name: 'name',
-//         ISBN: 'ISBN',
-//         authorId: '0',
-//         publisherId: '0',
-//         description: 'description',
-//         genresIds: ['0', '1', '2'],
-//         reviewsIds: ['0', '1', '2'],
-//         rating: 4.5,
-//         coverImageURL: '/images/test-book.jpg',
-//         keywords: ['book'],
-//         publishDate: new Date(0),
-//         fileURL: 'string',
-//         createdAt: new Date(0),
-//         updatedAt: new Date(0),
-//     })
-// }
-//     anotherBooksByThisAuthor.push({
-//         id: '0',
-//         name: 'name',
-//         ISBN: 'ISBN',
-//         authorId: '0',
-//         publisherId: '0',
-//         description: 'description',
-//         genresIds: ['0', '1', '2'],
-//         reviewsIds: ['0', '1', '2'],
-//         rating: 4.5,
-//         coverImageURL: '/images/test-book.jpg',
-//         keywords: ['book'],
-//         publishDate: new Date(0),
-//         fileURL: 'string',
-//         createdAt: new Date(0),
-//         updatedAt: new Date(0),
-//     })
-// }
 
 const formatCreatedDate = (rawDate: Date): string => {
     const date: Date = new Date(rawDate)
@@ -62,7 +26,7 @@ const formatCreatedDate = (rawDate: Date): string => {
     <div class="page">
         <div class="legend">
             <div class="legend__image-wrapper">
-                <img class="legend__image" :src="book.coverImageURL">
+                <img class="legend__image" :src="bookCoverImageLink">
             </div>
             <div class="legend__container">
                 <div class="legend__bio">
@@ -106,8 +70,8 @@ hr {
     display: grid;
     gap: 4px;
     &__image-wrapper {
-        padding-right: 10%;
-        padding-bottom: 10%;
+        padding: 0 5% 10%;
+        
     }
     &__image {
         aspect-ratio: 3/4;

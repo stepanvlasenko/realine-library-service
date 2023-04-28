@@ -2,8 +2,9 @@
 import type { PropType } from 'vue'
 
 import type { BookVariant, IBook } from '@types'
+import { useClientLinks } from '~/compasables/useClientLinks';
 
-defineProps({
+const { book } = defineProps({
     variant: {
         type: String as PropType<BookVariant>,
         required: true,
@@ -13,6 +14,8 @@ defineProps({
         required: true,
     },
 })
+
+const bookCoverImageLink = useClientLinks().getLink(book.coverImage)
 
 /**
  * adds '...' in the end of description
@@ -29,7 +32,7 @@ const formatDescription = (desc: string, nOfSymbols: number): string => {
 <template>
     <div v-if="variant === 'small'" :class="`book--${variant}`">
         <div class="book__image-wrapper">
-            <img class="book__image" :src="book.coverImageURL">
+            <img class="book__image" :src="bookCoverImageLink">
             <div class="book__rating">
                 <Rating :rating="book.rating" />
             </div>
@@ -41,7 +44,7 @@ const formatDescription = (desc: string, nOfSymbols: number): string => {
 
     <div v-if="variant === 'vertical'" :class="`book--${variant}`">
         <div class="book__image-wrapper">
-            <img class="book__image" :src="book.coverImageURL">
+            <img class="book__image" :src="bookCoverImageLink">
         </div>
         <div class="book__content">
             <h2 class="book__name">{{ book.name }}</h2>

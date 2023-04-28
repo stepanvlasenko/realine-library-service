@@ -14,17 +14,17 @@ datasource db {
 model Book {
     id String @id @default(cuid())
     name String
-    ISBN String
+    // ISBN String
     authorId String
-    publisherId String
+    // publisherId String
     description String
     genresIds String
-    reviewsIds String
+    // reviewsIds String
     rating Float
-    coverImageURL String
-    keywords String
+    coverImage Bytes
+    // keywords String
     publishDate DateTime
-    fileURL String
+    file Bytes
     createdAt DateTime
     updatedAt DateTime
 }
@@ -53,6 +53,6 @@ model Author {
     description String
     writtenBooksIds String
     birthday DateTime
-    dayOfDeath DateTime
+    dayOfDeath DateTime?
     secondName String?
 }

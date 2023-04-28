@@ -2,6 +2,7 @@
 import { PropType } from 'vue'
 import { IBook } from '@types'
 import { useAuthors } from '~/stores/authors'
+import { useClientLinks } from '~/compasables/useClientLinks';
 
 const { book } = defineProps({
     book: {
@@ -10,7 +11,12 @@ const { book } = defineProps({
     }
 })
 
+const emit = defineEmits(['linkClicked'])
+const onLinkClicked = () => emit('linkClicked')
+
 const author = await useAuthors().getAuthorById(book.authorId)
+
+const bookCoverImageLink = useClientLinks().getLink(book.coverImage)
 </script>
 
 <template>
@@ -18,14 +24,14 @@ const author = await useAuthors().getAuthorById(book.authorId)
     <div class="book">
         <!-- Враппер на 4 пикселя вылезает за границы компонента. Проблема -->
         <div class="book__image-wrapper">
-            <img class="book__image" :src="book.coverImageURL">
+            <img class="book__image" :src="bookCoverImageLink">
         </div>
         <div class="book__info">
             <h2>{{ book.name }}</h2>
             <p class="info__author">{{ author.getFullName() }}</p>
             <div class="info__details">
                 <Rating :rating="book.rating" />
-                <BaseLink text="Подробнее" :url="`/book/${book.id}`"/>
+                <BaseLink @clicked="onLinkClicked" text="Подробнее" :url="`/book/${book.id}`"/>
             </div>
             
         </div>
