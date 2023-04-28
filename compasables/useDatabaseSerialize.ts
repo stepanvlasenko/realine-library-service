@@ -1,4 +1,5 @@
 import type { PrismaBook, IBook, PrismaUser, IUser, PrismaAuthor, IAuthor } from '@types'
+import { useFiles } from '~/compasables/useFiles'
 
 export const useDatabaseSerialize = () => {
     /**
@@ -23,17 +24,30 @@ export const useDatabaseSerialize = () => {
         return {
             id: book.id,
             name: book.name,
-            ISBN: book.ISBN,
             authorId: book.authorId,
-            publisherId: book.publisherId,
             description: book.description,
             genresIds: stringToArray(book.genresIds),
-            reviewsIds: stringToArray(book.reviewsIds),
             rating: book.rating,
-            coverImageURL: book.coverImageURL,
-            keywords: stringToArray(book.keywords),
+            coverImage: useFiles().bufferToFile(book.coverImage, book.id),
             publishDate: book.publishDate,
-            fileURL: book.fileURL,
+            file: useFiles().bufferToFile(book.file, book.id),
+            createdAt: book.createdAt,
+            updatedAt: book.updatedAt,
+        }
+    }
+
+    const bookToPrismaBook = async (book: IBook): Promise<PrismaBook> => {
+        return {
+            id: book.id,
+            name: book.name,
+            authorId: book.authorId,
+            description: book.description,
+            genresIds: arrayToString(book.genresIds),
+            rating: book.rating,
+            coverImage: await useFiles().fileToBuffer(book.coverImage),
+            // keywords: arrayToString(book.keywords),
+            publishDate: book.publishDate,
+            file: await useFiles().fileToBuffer(book.file),
             createdAt: book.createdAt,
             updatedAt: book.updatedAt,
         }
@@ -67,5 +81,5 @@ export const useDatabaseSerialize = () => {
             secondName: author.secondName,
         }
     }
-    return { stringToArray, arrayToString, prismaBookToBook, prismaUserToUser, prismaAuthorToAuthor }
+    return { stringToArray, arrayToString, prismaBookToBook, bookToPrismaBook, prismaUserToUser, prismaAuthorToAuthor }
 }

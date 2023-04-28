@@ -2,17 +2,13 @@
 CREATE TABLE "Book" (
     "id" TEXT NOT NULL PRIMARY KEY,
     "name" TEXT NOT NULL,
-    "ISBN" TEXT NOT NULL,
     "authorId" TEXT NOT NULL,
-    "publisherId" TEXT NOT NULL,
     "description" TEXT NOT NULL,
     "genresIds" TEXT NOT NULL,
-    "reviewsIds" TEXT NOT NULL,
     "rating" REAL NOT NULL,
-    "coverImageURL" TEXT NOT NULL,
-    "keywords" TEXT NOT NULL,
+    "coverImage" BLOB NOT NULL,
     "publishDate" DATETIME NOT NULL,
-    "fileURL" TEXT NOT NULL,
+    "file" BLOB NOT NULL,
     "createdAt" DATETIME NOT NULL,
     "updatedAt" DATETIME NOT NULL
 );
@@ -41,6 +37,6 @@ CREATE TABLE "Author" (
     "description" TEXT NOT NULL,
     "writtenBooksIds" TEXT NOT NULL,
     "birthday" DATETIME NOT NULL,
-    "dayOfDeath" DATETIME NOT NULL,
+    "dayOfDeath" DATETIME,
     "secondName" TEXT
 );

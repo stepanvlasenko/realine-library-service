@@ -9,7 +9,7 @@ class Author implements IAuthor {
         public description: string,
         public writtenBooksIds: string[],
         public birthday: Date,
-        public dayOfDeath: Date,
+        public dayOfDeath: Date | null,
         public secondName: string | null,
     ) {}
 
@@ -31,6 +31,7 @@ export const useAuthors = defineStore('authors', () => {
      */
     const fetchAuthorById = async (id: string) => {
         const responce = await $fetch<IAuthor>('/api/authors/**', {
+            method: 'GET',
             params: {
                 id,
             },
