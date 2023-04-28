@@ -2,15 +2,20 @@
 import { IBook } from '@types';
 import { useBookSearch } from '@/compasables/useSearch'
 
+const bookSearch = useBookSearch()
+
+const searchRequest = ref('')
+const searchedBooks = ref<IBook[]>([])
+
 const isOpened = ref(false)
 const changeSearchState = () => {
     isOpened.value = !isOpened.value
 }
 
-const bookSearch = useBookSearch()
-
-const searchRequest = ref('')
-const searchedBooks = ref<IBook[]>([])
+const onLinkClicked = () => {
+    searchRequest.value = ''
+    searchedBooks.value = []
+}
 
 debouncedWatch(searchRequest, async () => {
     searchedBooks.value = await bookSearch.searchBooks(searchRequest.value)
@@ -20,14 +25,14 @@ debouncedWatch(searchRequest, async () => {
 </script>
 
 <template>
-    <div>
+    <div class="container">
         <div class="search">
             <div class="search__icon" :class="{ 'search__icon--right': isOpened }" @click="changeSearchState">
                 <NuxtIcon name="search" filled class="icon" />
             </div>
             <input v-if="isOpened" v-model="searchRequest" class="search__input" type="text">
         </div>
-        <Dropdown class="result" :books="searchedBooks"/>
+        <Dropdown @link-clicked="onLinkClicked" class="result" :books="searchedBooks"/>
     </div>
 </template>
 
@@ -67,6 +72,9 @@ debouncedWatch(searchRequest, async () => {
     &__input:focus {
         outline: none;
     }
+}
+.container {
+    position: relative;
 }
 .result {
     position: absolute;
