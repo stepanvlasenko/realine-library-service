@@ -1,14 +1,14 @@
 <script setup lang="ts">
 import { useBooks } from '~/stores/books';
 // const res = await useBooks().getBookById('clgb9dzhg0000vpqw6a6fmi1j')
-const res = await useBooks().createBook({
-    name: 'fjsdlkfj',
-    authorId: 'sdfasd',
-    description: 'fdsdfdsfsdf',
-    genresIds: ['1'],
-    coverImage: new File([], 'dsdf'),
-    file: new File([], 'dfsdf'),
-})
+// const res = await useBooks().createBook({
+//     name: 'fjsdlkfj',
+//     authorId: 'sdfasd',
+//     description: 'fdsdfdsfsdf',
+//     genresIds: ['1'],
+//     coverImage: new File([], 'dsdf'),
+//     file: new File([], 'dfsdf'),
+// })
 // console.log(res)
 </script>
 
