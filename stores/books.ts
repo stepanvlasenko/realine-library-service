@@ -73,7 +73,7 @@ export const useBooks = defineStore('books', () => {
     const createBook = async (book: InputBook) => {
         await $fetch('/api/books/**', {
             method: 'POST',
-            params: {
+            body: {
                 book: book
             }
         })

@@ -14,9 +14,9 @@ export interface IBook {
     description: string
     genresIds: string[]
     rating: number
-    coverImage: File
+    coverImageURL: string
     publishDate: Date
-    file: File
+    fileURL: string
     createdAt: Date
     updatedAt: Date
 }
@@ -26,8 +26,8 @@ export interface InputBook {
     authorId: string
     description: string
     genresIds: string[]
-    coverImage: File
-    file: File
+    coverImage: Buffer
+    file: Buffer
 }
 /**
  * Interface for User. Used on frontend without password

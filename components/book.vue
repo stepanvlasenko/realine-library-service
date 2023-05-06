@@ -15,8 +15,6 @@ const { book } = defineProps({
     },
 })
 
-const bookCoverImageLink = useClientLinks().getLink(book.coverImage)
-
 /**
  * adds '...' in the end of description
  * @param desc description of Book
@@ -32,7 +30,7 @@ const formatDescription = (desc: string, nOfSymbols: number): string => {
 <template>
     <div v-if="variant === 'small'" :class="`book--${variant}`">
         <div class="book__image-wrapper">
-            <img class="book__image" :src="bookCoverImageLink">
+            <img class="book__image" :src="book.coverImageURL">
             <div class="book__rating">
                 <Rating :rating="book.rating" />
             </div>
@@ -44,7 +42,7 @@ const formatDescription = (desc: string, nOfSymbols: number): string => {
 
     <div v-if="variant === 'vertical'" :class="`book--${variant}`">
         <div class="book__image-wrapper">
-            <img class="book__image" :src="bookCoverImageLink">
+            <img class="book__image" :src="book.coverImageURL">
         </div>
         <div class="book__content">
             <h2 class="book__name">{{ book.name }}</h2>

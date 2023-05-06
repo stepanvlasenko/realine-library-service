@@ -21,10 +21,10 @@ model Book {
     genresIds String
     // reviewsIds String
     rating Float
-    coverImage Bytes
+    coverImageURL String
     // keywords String
     publishDate DateTime
-    file Bytes
+    fileURL String
     createdAt DateTime
     updatedAt DateTime
 }

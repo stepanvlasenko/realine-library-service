@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { useFiles } from '~/compasables/useFiles';
 import { useGenres } from '../../stores/genres'
 import { useBooks } from '~/stores/books';
 
@@ -46,7 +47,7 @@ const checkValues = (): boolean => {
 }
 
 const isAccepted = ref(false)
-const onSubmit = (event: Event) => {
+const onSubmit = async (event: Event) => {
     if (!checkValues()) {
         isAccepted.value = false
         return
@@ -57,8 +58,8 @@ const onSubmit = (event: Event) => {
         authorId: authorId.value!,
         description: description.value!,
         genresIds: genresIds.value,
-        coverImage: coverImage.value!,
-        file: file.value!,
+        coverImage: await useFiles().fileToBuffer(coverImage.value!),
+        file: await useFiles().fileToBuffer(file.value!),
     })
 }
 
@@ -79,7 +80,7 @@ const onSubmit = (event: Event) => {
                 <label :for="genre.id">{{ genre.name }}</label>
             </div>
 
-            <input type="file" id="coverImageInput" ref="coverImageInput" @change="onCoverImageChange" accept=".png, .jpg, .jpeg, .svg">
+            <input type="file" id="coverImageInput" ref="coverImageInput" @change="onCoverImageChange" accept=".jpeg">
             <input type="file" id="fileInput" ref="fileInput" @change="onFileChange" accept=".txt">
 
             <input type="checkbox" id="agreeToPublish" v-model="agreeToPublish">

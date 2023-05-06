@@ -6,9 +6,9 @@ CREATE TABLE "Book" (
     "description" TEXT NOT NULL,
     "genresIds" TEXT NOT NULL,
     "rating" REAL NOT NULL,
-    "coverImage" BLOB NOT NULL,
+    "coverImageURL" TEXT NOT NULL,
     "publishDate" DATETIME NOT NULL,
-    "file" BLOB NOT NULL,
+    "fileURL" TEXT NOT NULL,
     "createdAt" DATETIME NOT NULL,
     "updatedAt" DATETIME NOT NULL
 );

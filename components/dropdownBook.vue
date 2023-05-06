@@ -15,8 +15,6 @@ const emit = defineEmits(['linkClicked'])
 const onLinkClicked = () => emit('linkClicked')
 
 const author = await useAuthors().getAuthorById(book.authorId)
-
-const bookCoverImageLink = useClientLinks().getLink(book.coverImage)
 </script>
 
 <template>
@@ -24,7 +22,7 @@ const bookCoverImageLink = useClientLinks().getLink(book.coverImage)
     <div class="book">
         <!-- Враппер на 4 пикселя вылезает за границы компонента. Проблема -->
         <div class="book__image-wrapper">
-            <img class="book__image" :src="bookCoverImageLink">
+            <img class="book__image" :src="book.coverImageURL">
         </div>
         <div class="book__info">
             <h2>{{ book.name }}</h2>

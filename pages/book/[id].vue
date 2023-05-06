@@ -11,8 +11,6 @@ const author = await useAuthors().getAuthorById(book.authorId)
 const similarBooks = await useBooks().fetchSimilarBooksById(book.id)
 const anotherBooksByThisAuthor = await useBooks().getBooksByIds(author.writtenBooksIds)
 
-const bookCoverImageLink = useClientLinks().getLink(book.coverImage)
-
 // dev
 const genres = 'abc def ghi'
 
@@ -26,7 +24,7 @@ const formatCreatedDate = (rawDate: Date): string => {
     <div class="page">
         <div class="legend">
             <div class="legend__image-wrapper">
-                <img class="legend__image" :src="bookCoverImageLink">
+                <img class="legend__image" :src="book.coverImageURL">
             </div>
             <div class="legend__container">
                 <div class="legend__bio">

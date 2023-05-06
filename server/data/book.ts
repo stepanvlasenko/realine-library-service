@@ -1,7 +1,7 @@
 import { useDatabaseSerialize } from '~/compasables/useDatabaseSerialize';
-import { useFiles } from '~/compasables/useFiles';
 import { InputBook, PrismaBook } from '@types'
 import { prisma } from '../database'
+import * as firebase from '../lib/firebase'
 
 export const getBooksByIds = async (ids: string[]) => {
     await prisma.$connect()
@@ -21,26 +21,59 @@ export const getBooksByIds = async (ids: string[]) => {
 
 // Problems
 export const addBook = async (rawBook: InputBook) => {
+
+    // Отправка картинки
+    // Создание ЮРЛ
+    // const book: Omit<PrismaBook, 'id'> = {
+    //     name: rawBook.name,
+    //     description: rawBook.description,
+    //     authorId: rawBook.authorId,
+    //     coverImageURL: '',
+    //     fileURL: '',
+    //     genresIds: useDatabaseSerialize().arrayToString(rawBook.genresIds),
+    //     rating: 0,
+    //     createdAt: new Date(),
+    //     updatedAt: new Date(),
+    //     publishDate: new Date(),
+    // }
     
-    const book: Omit<PrismaBook, 'id'> = {
-        name: rawBook.name,
-        description: rawBook.description,
-        authorId: rawBook.authorId,
-        coverImage: await useFiles().fileToBuffer(rawBook.coverImage),
-        file: await useFiles().fileToBuffer(rawBook.file),
-        genresIds: useDatabaseSerialize().arrayToString(rawBook.genresIds),
-        rating: 0,
-        createdAt: new Date(),
-        updatedAt: new Date(),
-        publishDate: new Date(),
-    }
-
     await prisma.$connect()
-
-    await prisma.book.create({
-        data: book
+    const book = await prisma.book.create({
+        data: {
+            name: rawBook.name,
+            description: rawBook.description,
+            authorId: rawBook.authorId,
+            coverImageURL: '',
+            fileURL: '',
+            genresIds: useDatabaseSerialize().arrayToString(rawBook.genresIds),
+            rating: 0,
+            createdAt: new Date(),
+            updatedAt: new Date(),
+            publishDate: new Date(),
+        }
     })
+    await prisma.$disconnect()
 
+    const imageBuffer = JSON.parse(JSON.stringify((rawBook.coverImage)))
+    const fileBuffer = JSON.parse(JSON.stringify((rawBook.file)))
+
+    await firebase.sendImage(book.id + '.jpeg', imageBuffer.data)
+    await firebase.sendFile(book.id + '.txt', fileBuffer.data)
+
+    const coverImageURL = await firebase.getImageURL(book.id + '.jpeg')
+    const fileURL = await firebase.getFileURL(book.id + '.txt')
+    await prisma.$connect()
+    console.log(await prisma.book.findMany())
+    await prisma.book.update({
+        where: {
+            id: book.id
+        },
+        data: {
+            coverImageURL: coverImageURL,
+            fileURL: fileURL,
+        }
+    })
+    console.log(await prisma.book.findMany())
     await prisma.$disconnect()
 }
 

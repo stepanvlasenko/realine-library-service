@@ -68,12 +68,10 @@ export default defineEventHandler(async (event) => {
     }
     
     if (getMethod(event) === 'POST') {
-        if (query.book && typeof query.book === 'string') {
-            const book = JSON.parse(query.book) as InputBook
+        const body = await readBody(event)
+        const book = body.book as InputBook
             await addBook(book)
             return 1
-         }else {
-            throw new Error('wrong book was gotten')
-        }
+        
     }
 })
