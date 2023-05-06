@@ -21,22 +21,6 @@ export const getBooksByIds = async (ids: string[]) => {
 
 // Problems
 export const addBook = async (rawBook: InputBook) => {
-
-    // Отправка картинки
-    // Создание ЮРЛ
-    // const book: Omit<PrismaBook, 'id'> = {
-    //     name: rawBook.name,
-    //     description: rawBook.description,
-    //     authorId: rawBook.authorId,
-    //     coverImageURL: '',
-    //     fileURL: '',
-    //     genresIds: useDatabaseSerialize().arrayToString(rawBook.genresIds),
-    //     rating: 0,
-    //     createdAt: new Date(),
-    //     updatedAt: new Date(),
-    //     publishDate: new Date(),
-    // }
-    
     await prisma.$connect()
     const book = await prisma.book.create({
         data: {
@@ -73,7 +57,6 @@ export const addBook = async (rawBook: InputBook) => {
             fileURL: fileURL,
         }
     })
-    console.log(await prisma.book.findMany())
     await prisma.$disconnect()
 }
 
@@ -123,6 +106,18 @@ export const searchBooks = async (queryString: string, responceLength: number) =
         rawBooks.filter((v) => {
             return v.name.toLowerCase().includes(queryString.toLowerCase()) && !v.name.toLowerCase().startsWith(queryString.toLowerCase())
         }) : [])
-    
+
     return [...booksWhichStartWith, ...booksWhichIncludeAndNotStartsWith].slice(0, responceLength)
 }
+
+export const getAuthorOwnedBooksIds = async (id: string) => {
+    await prisma.$connect()
+    const books = await prisma.book.findMany({
+        where: {
+            authorId: id
+        }
+    })
+    await prisma.$disconnect()
+    return books.map(v => v.id)
+}
+

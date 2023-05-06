@@ -7,7 +7,6 @@ class Author implements IAuthor {
         public name: string,
         public surname: string,
         public description: string,
-        public writtenBooksIds: string[],
         public birthday: Date,
         public dayOfDeath: Date | null,
         public secondName: string | null,
@@ -36,7 +35,7 @@ export const useAuthors = defineStore('authors', () => {
                 id,
             },
         })
-        const author = new Author(responce.id, responce.name, responce.surname, responce.description, responce.writtenBooksIds, responce.birthday, responce.dayOfDeath, responce.secondName)
+        const author = new Author(responce.id, responce.name, responce.surname, responce.description, responce.birthday, responce.dayOfDeath, responce.secondName)
         loadedAuthors.push(author)
         return author
     }
@@ -49,6 +48,18 @@ export const useAuthors = defineStore('authors', () => {
     const getAuthorById = async (id: string) => {
         return loadedAuthors.find(v => v.id === id) || await fetchAuthorById(id)
     }
-
-    return { getAuthorById }
+    /**
+     * @param id id of author
+     * @returns books ids by this author
+     */
+    const getOwnedBooksIds = async (id: string) => {
+        const responce = await $fetch<string[]>('/api/authorownedbooks/**', {
+            method: 'GET',
+            params: {
+                id,
+            },
+        })
+        return responce
+    }
+    return { getAuthorById, getOwnedBooksIds }
 })

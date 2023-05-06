@@ -3,7 +3,6 @@ import { useFiles } from '~/compasables/useFiles'
 
 export const useDatabaseSerialize = () => {
     /**
-     *
      * @param str string formated as "a,b,c,d,e"
      * @returns [a, b, c, d, e]
      */
@@ -12,7 +11,6 @@ export const useDatabaseSerialize = () => {
     }
 
     /**
-     *
      * @param arr array
      * @returns string formated as "a,b,c,d,e"
      */
@@ -45,7 +43,6 @@ export const useDatabaseSerialize = () => {
             genresIds: arrayToString(book.genresIds),
             rating: book.rating,
             coverImageURL: book.coverImageURL,
-            // keywords: arrayToString(book.keywords),
             publishDate: book.publishDate,
             fileURL: book.fileURL,
             createdAt: book.createdAt,
@@ -75,7 +72,6 @@ export const useDatabaseSerialize = () => {
             name: author.name,
             surname: author.surname,
             description: author.description,
-            writtenBooksIds: stringToArray(author.writtenBooksIds),
             birthday: author.birthday,
             dayOfDeath: author.dayOfDeath,
             secondName: author.secondName,

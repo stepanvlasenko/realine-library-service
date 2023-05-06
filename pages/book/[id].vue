@@ -9,7 +9,7 @@ const bookId = '' + useRoute().params.id
 const book = await useBooks().getBookById(bookId)
 const author = await useAuthors().getAuthorById(book.authorId)
 const similarBooks = await useBooks().fetchSimilarBooksById(book.id)
-const anotherBooksByThisAuthor = await useBooks().getBooksByIds(author.writtenBooksIds)
+const anotherBooksByThisAuthor = await useBooks().getBooksByIds(await useAuthors().getOwnedBooksIds(author.id))
 
 // dev
 const genres = 'abc def ghi'
@@ -38,12 +38,11 @@ const formatCreatedDate = (rawDate: Date): string => {
             </div>
         </div>
         <div class="read">
-            <!-- Неправда (юрл не туда ведет) -->
             <BaseLink class="read__link" text="Читать" :url="`/book/${book.id}`" />
         </div>
         <div class="another">
-            <List title="Похожие книги" :books="similarBooks" variant="slider" />
-            <List title="Другие книги этого автора" :books="anotherBooksByThisAuthor" variant="slider" />
+            <List v-if="similarBooks.length" title="Похожие книги" :books="similarBooks" variant="slider" />
+            <List v-if="anotherBooksByThisAuthor.length" title="Другие книги этого автора" :books="anotherBooksByThisAuthor" variant="slider" />
         </div>
     </div>
 </template>
@@ -69,7 +68,7 @@ hr {
     gap: 4px;
     &__image-wrapper {
         padding: 0 5% 10%;
-        
+
     }
     &__image {
         aspect-ratio: 3/4;

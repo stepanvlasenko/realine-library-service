@@ -11,7 +11,7 @@ export const getAuthorById = async (id: string) => {
 
     const author = await prisma.author.findUnique({
         where: {
-            id: id
+            id: id,
         }
     })
 

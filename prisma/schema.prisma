@@ -45,13 +45,11 @@ model User {
     createdAt DateTime
     updatedAt DateTime
 }
-// writtenBooksIds - string formated as "a,b,c,d,e" - used as arrays
 model Author {
     id String @id @default(cuid())
     name String
     surname String
     description String
-    writtenBooksIds String
     birthday DateTime
     dayOfDeath DateTime?
     secondName String?
