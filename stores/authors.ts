@@ -18,8 +18,6 @@ class Author implements IAuthor {
         return `${this.name} ${this.surname}`
     }
 }
-// ТЫ НЕ ЛОВИШЬ ОШИБКИ!!! А ЧТО ЕСЛИ НЕТ ТАКОГО АВТОРА!!!!*???!?!?!??! С КНИГАМИ ТОЖЕ САМОЕ
-// В реквесте я не привожу респонс к классу автор
 export const useAuthors = defineStore('authors', () => {
     const loadedAuthors: Author[] = []
 

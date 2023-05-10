@@ -10,25 +10,6 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-// genresIds, reviewsIds, keywords - string formated as "a,b,c,d,e" - used as arrays
-model Book {
-    id String @id @default(cuid())
-    name String
-    // ISBN String
-    authorId String
-    // publisherId String
-    description String
-    genresIds String
-    // reviewsIds String
-    rating Float
-    coverImageURL String
-    // keywords String
-    publishDate DateTime
-    fileURL String
-    createdAt DateTime
-    updatedAt DateTime
-}
-
 // interestsIds, readedBooksIds, favoritesIds - string formated as "a,b,c,d,e" - used as arrays
 model User {
     id String @id @default(cuid())
@@ -45,6 +26,22 @@ model User {
     createdAt DateTime
     updatedAt DateTime
 }
+
+// genresIds, reviewsIds, keywords - string formated as "a,b,c,d,e" - used as arrays
+model Book {
+    id String @id @default(cuid())
+    name String
+    authorId String
+    description String
+    genresIds String
+    rating Float
+    coverImageURL String
+    publishDate DateTime
+    fileURL String
+    createdAt DateTime
+    updatedAt DateTime
+}
+
 model Author {
     id String @id @default(cuid())
     name String

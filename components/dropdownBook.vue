@@ -2,7 +2,6 @@
 import { PropType } from 'vue'
 import { IBook } from '@types'
 import { useAuthors } from '~/stores/authors'
-import { useClientLinks } from '~/compasables/useClientLinks';
 
 const { book } = defineProps({
     book: {
@@ -18,9 +17,7 @@ const author = await useAuthors().getAuthorById(book.authorId)
 </script>
 
 <template>
-    <!-- Мб будет лучше добавить кнопку-ссылку вида "подробнее" -->
     <div class="book">
-        <!-- Враппер на 4 пикселя вылезает за границы компонента. Проблема -->
         <div class="book__image-wrapper">
             <img class="book__image" :src="book.coverImageURL">
         </div>

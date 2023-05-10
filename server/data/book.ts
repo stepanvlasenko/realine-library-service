@@ -19,7 +19,6 @@ export const getBooksByIds = async (ids: string[]) => {
     return books.map(useDatabaseSerialize().prismaBookToBook)
 }
 
-// Problems
 export const addBook = async (rawBook: InputBook) => {
     await prisma.$connect()
     const book = await prisma.book.create({
@@ -47,7 +46,6 @@ export const addBook = async (rawBook: InputBook) => {
     const coverImageURL = await firebase.getImageURL(book.id + '.jpeg')
     const fileURL = await firebase.getFileURL(book.id + '.txt')
     await prisma.$connect()
-    console.log(await prisma.book.findMany())
     await prisma.book.update({
         where: {
             id: book.id
@@ -64,7 +62,6 @@ const arraysCrossing = <T = unknown>(array1: T[], array2: T[]): T[] => {
     return array1.filter(v => array2.includes(v))
 }
 
-// Todo: sort by crossings count decrease
 export const getSimilarBooksById = async (id: string, minCrossingCount = 2) => {
     await prisma.$connect()
 

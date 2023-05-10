@@ -2,7 +2,6 @@
 import type { PropType } from 'vue'
 
 import type { BookVariant, IBook } from '@types'
-import { useClientLinks } from '~/compasables/useClientLinks';
 
 const { book } = defineProps({
     variant: {

@@ -38,7 +38,6 @@ debouncedWatch(searchRequest, async () => {
 
 <style lang="scss" scoped>
 @use '@/assets/styles/index.scss' as styles;
-// fix it (height)
 .search {
     position: relative;
     display: flex;

@@ -1,22 +1,18 @@
 <script setup lang="ts">
-import type { Book, User, ListVariant } from '@types'
+import type { IBook, IUser, ListVariant } from '@types'
 import { computed } from '@vue/reactivity'
 import { useScssBreakpoints } from '@/compasables/useScssBreakpoints'
 
-const books: Book[] = []
+const books: IBook[] = []
 for (let i = 0; i < 5; i++) {
     books.push({
         id: '0',
         name: 'name',
-        ISBN: 'ISBN',
         authorId: '0',
-        publisherId: '0',
         description: 'description',
         genresIds: ['0', '1', '2'],
-        reviewsIds: ['0', '1', '2'],
         rating: 4.5,
         coverImageURL: '/images/test-book.jpg',
-        keywords: ['book'],
         publishDate: new Date(0),
         fileURL: 'string',
         createdAt: new Date(0),
@@ -25,7 +21,7 @@ for (let i = 0; i < 5; i++) {
 }
 const userId = useRoute().params.id
 
-const user = await $fetch<User>('/api/users/**', {
+const user = await $fetch<IUser>('/api/users/**', {
     params: {
         id: userId,
     },

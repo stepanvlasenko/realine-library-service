@@ -1,6 +1,5 @@
 import { defineStore } from 'pinia'
 import type { IBook, InputBook } from '@types'
-import { useAuthors } from './authors'
 
 export const useBooks = defineStore('books', () => {
     const loadedBooks: IBook[] = []
@@ -9,7 +8,6 @@ export const useBooks = defineStore('books', () => {
      * return books with ids in param
      * @param ids array of ids of book
      */
-    // Сделать нормальный запрос
     const fetchBooksByIds = async (ids: string[]) => {
         const responce = await $fetch<IBook[]>('/api/books/**', {
             method: 'GET',
@@ -39,6 +37,7 @@ export const useBooks = defineStore('books', () => {
             return filteredBooks
         }
     }
+
     /**
      * return book with id in param
      * @param id id of book
@@ -48,18 +47,9 @@ export const useBooks = defineStore('books', () => {
     }
 
     /**
-     * calls getBooksByIds with ids of books by this author
-     * @returns array of books by this author
-     */
-    const getBooksByAuthorId = async (authorId: string) => {
-        const author = await useAuthors().getAuthorById(authorId)
-        return getBooksByIds(author.writtenBooksIds)
-    }
-    /**
      * @param book book which you want to get similar
      * @returns books which similar to this book
      */
-    // URL кал
     const fetchSimilarBooksById = async (id: string) => {
         const responce = await $fetch<IBook[]>('/api/similarbooks/**', {
             method: 'GET',
@@ -70,6 +60,11 @@ export const useBooks = defineStore('books', () => {
         return responce
     }
 
+    /**
+     * creates this book in database
+     * @param book book with custom properties
+     * @returns void
+     */
     const createBook = async (book: InputBook) => {
         await $fetch('/api/books/**', {
             method: 'POST',
@@ -78,5 +73,5 @@ export const useBooks = defineStore('books', () => {
             }
         })
     }
-    return { getBookById, getBooksByIds, getBooksByAuthorId, fetchSimilarBooksById, createBook}
+    return { getBookById, getBooksByIds, fetchSimilarBooksById, createBook }
 })

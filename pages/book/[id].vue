@@ -1,8 +1,7 @@
 <script lang="ts" setup>
-import type { IBook } from '@types'
+import { useGenres } from '~/stores/genres'
 import { useAuthors } from '../../stores/authors'
 import { useBooks } from '../../stores/books'
-import { useClientLinks } from '~/compasables/useClientLinks';
 
 const bookId = '' + useRoute().params.id
 
@@ -11,8 +10,7 @@ const author = await useAuthors().getAuthorById(book.authorId)
 const similarBooks = await useBooks().fetchSimilarBooksById(book.id)
 const anotherBooksByThisAuthor = await useBooks().getBooksByIds(await useAuthors().getOwnedBooksIds(author.id))
 
-// dev
-const genres = 'abc def ghi'
+const genres = useGenres().getGenres().map(v => v.name && book.genresIds.includes(v.id)).join(', ')
 
 const formatCreatedDate = (rawDate: Date): string => {
     const date: Date = new Date(rawDate)

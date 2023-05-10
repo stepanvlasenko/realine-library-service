@@ -1,6 +1,4 @@
 <script lang="ts" setup>
-import { e } from 'ofetch/dist/error-04138797';
-
 const { url } = defineProps({
     text: {
         type: String,
