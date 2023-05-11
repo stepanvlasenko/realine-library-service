@@ -1,34 +1,43 @@
 <script lang="ts" setup>
+import { IBook } from '@types';
 import { useBookSearch } from '@/compasables/useSearch'
+
+const bookSearch = useBookSearch()
+
+const searchRequest = ref('')
+const searchedBooks = ref<IBook[]>([])
 
 const isOpened = ref(false)
 const changeSearchState = () => {
     isOpened.value = !isOpened.value
 }
 
-const searchRequest = ref('')
-const bookSearch = useBookSearch()
+const onLinkClicked = () => {
+    searchRequest.value = ''
+    searchedBooks.value = []
+}
 
-const searched = ref(await bookSearch.searchBooks(searchRequest.value))
-
-watch(searchRequest, async () => {
-    searched.value = await bookSearch.searchBooks(searchRequest.value)
+debouncedWatch(searchRequest, async () => {
+    searchedBooks.value = await bookSearch.searchBooks(searchRequest.value)
+}, {
+    debounce: 300,
 })
 </script>
 
 <template>
-    <div class="search">
-        <div class="search__icon" :class="{ 'search__icon--right': isOpened }" @click="changeSearchState">
-            <NuxtIcon name="search" filled class="icon" />
+    <div class="container">
+        <div class="search">
+            <div class="search__icon" :class="{ 'search__icon--right': isOpened }" @click="changeSearchState">
+                <NuxtIcon name="search" filled class="icon" />
+            </div>
+            <input v-if="isOpened" v-model="searchRequest" class="search__input" type="text">
         </div>
-        <input v-if="isOpened" v-model="searchRequest" class="search__input" type="text">
+        <Dropdown @link-clicked="onLinkClicked" class="result" :books="searchedBooks"/>
     </div>
-    {{ searched }}
 </template>
 
 <style lang="scss" scoped>
 @use '@/assets/styles/index.scss' as styles;
-// fix it (height)
 .search {
     position: relative;
     display: flex;
@@ -62,5 +71,11 @@ watch(searchRequest, async () => {
     &__input:focus {
         outline: none;
     }
+}
+.container {
+    position: relative;
+}
+.result {
+    position: absolute;
 }
 </style>

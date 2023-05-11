@@ -6,30 +6,32 @@ import { useScssBreakpoints } from '@/compasables/useScssBreakpoints'
 const books: IBook[] = []
 for (let i = 0; i < 5; i++) {
     books.push({
-        ID: 0,
-        name: 'Name',
-        ISBN: 'ISBN',
-        authorID: 0,
-        publisherID: 0,
-        description: 'description lorem ipsum description lorem ipsum description lorem ipsum description lorem ipsum description lorem ipsum description lorem ipsumdescription lorem ipsumdescription lorem ipsumdescription lorem ipsumdescription lorem ipsum',
-        genresID: [0, 1, 2],
-        reviewsID: [0, 1, 2],
+        id: '0',
+        name: 'name',
+        authorId: '0',
+        description: 'description',
+        genresIds: ['0', '1', '2'],
         rating: 4.5,
         coverImageURL: '/images/test-book.jpg',
-        keywords: ['book'],
         publishDate: new Date(0),
         fileURL: 'string',
         createdAt: new Date(0),
         updatedAt: new Date(0),
     })
 }
-const thisUserID = +useRoute().params.id
+const userId = useRoute().params.id
 
 const user = await $fetch<IUser>('/api/users/**', {
     params: {
-        id: thisUserID,
+        id: userId,
     },
 })
+
+const formatBirthday = (rawDate: Date): string => {
+    const date: Date = new Date(rawDate)
+    return `${date.getDate()}.${date.getMonth()}.${date.getFullYear()}`
+}
+
 const breakpoints = useScssBreakpoints()
 
 const listVariant = computed<ListVariant>(() => {
@@ -37,11 +39,6 @@ const listVariant = computed<ListVariant>(() => {
 
     return isDesktop ? 'list' : 'slider'
 })
-
-const formatBirthday = (rawDate: Date): string => {
-    const date: Date = new Date(rawDate)
-    return `${date.getDate()}.${date.getMonth()}.${date.getFullYear()}`
-}
 </script>
 
 <template>

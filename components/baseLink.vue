@@ -9,11 +9,14 @@ const { url } = defineProps({
         required: true,
     },
 })
+
+const emit = defineEmits(['clicked'])
+const onClick = () => emit('clicked')
 const validatedUrl = (url[0] === '/') ? url : `/${url}`
 </script>
 
 <template>
-    <NuxtLink :to="validatedUrl">
+    <NuxtLink :to="validatedUrl" @click="onClick">
         <div class="link">
             <p>{{ text }}</p>
             <NuxtIcon class="arrow" name="arrow" />

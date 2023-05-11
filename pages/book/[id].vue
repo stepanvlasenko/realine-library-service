@@ -1,60 +1,21 @@
 <script lang="ts" setup>
-import type { IBook } from '@types'
+import { useGenres } from '~/stores/genres'
 import { useAuthors } from '../../stores/authors'
 import { useBooks } from '../../stores/books'
 
-const thisBookID = +useRoute().params.id
+const bookId = '' + useRoute().params.id
 
-const book: IBook = await useBooks().getBookByID(thisBookID)
-const author = await useAuthors().getAuthorByID(book.authorID)
-const genres = 'abc def ghi'
+const book = await useBooks().getBookById(bookId)
+const author = await useAuthors().getAuthorById(book.authorId)
+const similarBooks = await useBooks().fetchSimilarBooksById(book.id)
+const anotherBooksByThisAuthor = await useBooks().getBooksByIds(await useAuthors().getOwnedBooksIds(author.id))
 
-const similarBooks: IBook[] = []
-const anotherBooksByThisAuthor: IBook[] = []
-for (let i = 0; i < 5; i++) {
-    similarBooks.push({
-        ID: 0,
-        name: 'Name',
-        ISBN: 'ISBN',
-        authorID: 0,
-        publisherID: 0,
-        description: 'description lorem ipsum description lorem ipsum description lorem ipsum description lorem ipsum description lorem ipsum description lorem ipsumdescription lorem ipsumdescription lorem ipsumdescription lorem ipsumdescription lorem ipsum',
-        genresID: [0, 1, 2],
-        reviewsID: [0, 1, 2],
-        rating: 4.5,
-        coverImageURL: '/images/test-book.jpg',
-        keywords: ['book'],
-        publishDate: new Date(0),
-        fileURL: 'string',
-        createdAt: new Date(0),
-        updatedAt: new Date(0),
-    })
-    anotherBooksByThisAuthor.push({
-        ID: 0,
-        name: 'Name',
-        ISBN: 'ISBN',
-        authorID: 0,
-        publisherID: 0,
-        description: 'description lorem ipsum description lorem ipsum description lorem ipsum description lorem ipsum description lorem ipsum description lorem ipsumdescription lorem ipsumdescription lorem ipsumdescription lorem ipsumdescription lorem ipsum',
-        genresID: [0, 1, 2],
-        reviewsID: [0, 1, 2],
-        rating: 4.5,
-        coverImageURL: '/images/test-book.jpg',
-        keywords: ['book'],
-        publishDate: new Date(0),
-        fileURL: 'string',
-        createdAt: new Date(0),
-        updatedAt: new Date(0),
-    })
-}
+const genres = useGenres().getGenres().map(v => v.name && book.genresIds.includes(v.id)).join(', ')
 
 const formatCreatedDate = (rawDate: Date): string => {
     const date: Date = new Date(rawDate)
     return `${date.getFullYear()}`
 }
-// Не делай этого...
-// const similarBooks = await useBooks().fetchSimilarBooksByBook(book)
-// const anotherBooksByThisAuthor = useBooks().getBooksByAuthorID(author.ID)
 </script>
 
 <template>
@@ -75,11 +36,11 @@ const formatCreatedDate = (rawDate: Date): string => {
             </div>
         </div>
         <div class="read">
-            <BaseLink class="read__link" text="Читать" :url="`/book/${book.ID}`" />
+            <BaseLink class="read__link" text="Читать" :url="`/book/${book.id}`" />
         </div>
         <div class="another">
-            <List title="Похожие книги" :books="similarBooks" variant="slider" />
-            <List title="Другие книги этого автора" :books="anotherBooksByThisAuthor" variant="slider" />
+            <List v-if="similarBooks.length" title="Похожие книги" :books="similarBooks" variant="slider" />
+            <List v-if="anotherBooksByThisAuthor.length" title="Другие книги этого автора" :books="anotherBooksByThisAuthor" variant="slider" />
         </div>
     </div>
 </template>
@@ -104,8 +65,8 @@ hr {
     display: grid;
     gap: 4px;
     &__image-wrapper {
-        padding-right: 10%;
-        padding-bottom: 10%;
+        padding: 0 5% 10%;
+
     }
     &__image {
         aspect-ratio: 3/4;

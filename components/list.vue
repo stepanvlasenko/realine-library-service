@@ -33,7 +33,7 @@ const itemsInRow = computed(() => {
         <div v-if="variant === 'list'" class="list">
             <div
                 v-for="book of books"
-                :key="book.ID"
+                :key="book.id"
                 class="list__item"
             >
                 <Book

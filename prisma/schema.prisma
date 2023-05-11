@@ -1,0 +1,53 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+// interestsIds, readedBooksIds, favoritesIds - string formated as "a,b,c,d,e" - used as arrays
+model User {
+    id String @id @default(cuid())
+    username String
+    birthday DateTime
+    role String
+    // Что-то с жанрами
+    interestsIds String
+    readedBooksIds String
+    favoritesIds String
+    email String
+    avatarURL String
+    password String
+    createdAt DateTime
+    updatedAt DateTime
+}
+
+// genresIds, reviewsIds, keywords - string formated as "a,b,c,d,e" - used as arrays
+model Book {
+    id String @id @default(cuid())
+    name String
+    authorId String
+    description String
+    genresIds String
+    rating Float
+    coverImageURL String
+    publishDate DateTime
+    fileURL String
+    createdAt DateTime
+    updatedAt DateTime
+}
+
+model Author {
+    id String @id @default(cuid())
+    name String
+    surname String
+    description String
+    birthday DateTime
+    dayOfDeath DateTime?
+    secondName String?
+}

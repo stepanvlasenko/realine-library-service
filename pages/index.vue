@@ -1,35 +1,20 @@
 <script setup lang="ts">
-import type { IBook } from '@types'
+import { useBooks } from '~/stores/books';
+import { Buffer } from 'buffer'
+import { useFiles } from '~/compasables/useFiles';
 
-const myBook: IBook = {
-    ID: 0,
-    name: 'name',
-    ISBN: 'ISBN',
-    authorID: 0,
-    publisherID: 0,
-    description: 'description',
-    genresID: [0, 1, 2],
-    reviewsID: [0, 1, 2],
-    rating: 4.5,
-    coverImageURL: '/images/test-book.jpg',
-    keywords: ['book'],
-    publishDate: new Date(0),
-    fileURL: 'string',
-    createdAt: new Date(0),
-    updatedAt: new Date(0),
-}
 </script>
 
 <template>
     <div>
-        <BaseLink text="Юзер" url="/user/0" />
-        <BaseLink text="Книга" url="/book/0" />
+        <!-- <BaseLink text="Юзер" url="/user/0" />
+        <BaseLink text="Книга" url="/book/0" /> -->
     </div>
 </template>
 
 <style scoped>
 .test {
-    width: 200px;
+    width: 400px;
     height: 300px;
 }
 .test2 {
@@ -38,3 +23,4 @@ const myBook: IBook = {
     background-color: black;
 }
 </style>
+''
