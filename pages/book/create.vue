@@ -74,25 +74,38 @@ const onSubmit = async (event: Event) => {
             <input type="text" v-model="authorId" placeholder="Автор книги">
 
             <input type="text" v-model="description" placeholder="Описание книги">
-
-            <div v-for="genre in genres">
-                <input type="checkbox" :id="genre.id" :value="genre.id" v-model="genresIds">
-                <label :for="genre.id">{{ genre.name }}</label>
+            <div class="form__genre">
+                <h3 class="form__text">Укажите жанр книги</h3>
+                <div v-for="genre in genres">
+                    <input type="checkbox" :id="genre.id" :value="genre.id" v-model="genresIds">
+                    <label class="form__text" :for="genre.id">{{ genre.name }}</label>
+                </div>
             </div>
 
-            <input type="file" id="coverImageInput" ref="coverImageInput" @change="onCoverImageChange" accept=".jpeg">
-            <input type="file" id="fileInput" ref="fileInput" @change="onFileChange" accept=".txt">
+            <div class="form__file">
+                <label class="form__text" for="coverImageInput">Загрузите обложку книги</label>
+                <input class="form__file-input" type="file" id="coverImageInput" ref="coverImageInput" @change="onCoverImageChange" accept=".jpeg">
+            </div>
 
-            <input type="checkbox" id="agreeToPublish" v-model="agreeToPublish">
-            <label for="agreeToPublish">Я даю согласие на публикацию в открытый доступ</label>
-            
-            <input type="checkbox" id="confirmOwnership" v-model="confirmOwnership">
-            <label for="confirmOwnership">Я подтверждаю, что имею право на публикацию данного материала</label>
+            <div class="form__file">
+                <label class="form__text" for="fileInput">Загрузите файл книги</label>
+                <input class="form__file-input" type="file" id="fileInput" ref="fileInput" @change="onFileChange" accept=".txt">
+            </div>
+
+            <div>
+                <input type="checkbox" id="agreeToPublish" v-model="agreeToPublish">
+                <label class="form__text" for="agreeToPublish">Я даю согласие на публикацию в открытый доступ</label>
+            </div>
+
+            <div>
+                <input type="checkbox" id="confirmOwnership" v-model="confirmOwnership">
+                <label class="form__text" for="confirmOwnership">Я подтверждаю, что имею право на публикацию данного материала</label>
+            </div>
 
             <button type="submit">Создать</button>
             <!-- Можно сделать компонент formError -->
-            <h2 v-if="!areValuesCorrect">Вы заполнили не все поля</h2>
-            <h2 v-if="isAccepted">Поля заполнены правильно</h2>
+            <h2 class="form__text" v-if="!areValuesCorrect">Вы заполнили не все поля</h2>
+            <h2 class="form__text" v-if="isAccepted">Поля заполнены правильно</h2>
         </form>
 
         
@@ -104,5 +117,24 @@ const onSubmit = async (event: Event) => {
 </template>
 
 <style scoped lang="scss">
+@use '@/assets/styles/index.scss' as styles;
 
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+
+    &__text {
+        color: map-get($map: styles.$colors, $key: gray-light);
+    }
+
+    &__file {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+        &-input {
+            color: map-get($map: styles.$colors, $key: gray-light);
+        }
+    }
+}
 </style>
