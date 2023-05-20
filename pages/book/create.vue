@@ -2,8 +2,11 @@
 import { useFiles } from '~/compasables/useFiles';
 import { useGenres } from '../../stores/genres'
 import { useBooks } from '~/stores/books';
+import { IAuthor } from '~/assets/ts/types';
+import { useAuthorSearch } from '../../compasables/useSearch'
 
 const genres = useGenres().getGenres()
+const authorSearch = useAuthorSearch()
 
 const name = ref<string | null>(null)
 const authorId = ref<string | null>(null)
@@ -62,7 +65,19 @@ const onSubmit = async (event: Event) => {
         file: await useFiles().fileToBuffer(file.value!),
     })
 }
+const searchAuthorRequest = ref('')
+const searchedAuthors = ref<IAuthor[]>([])
 
+debouncedWatch(searchAuthorRequest, async () => {
+    searchedAuthors.value = await authorSearch.searchAuthors(searchAuthorRequest.value)
+}, {
+    debounce: 300,
+})
+const getFullName = (author: IAuthor): string => {
+        if (author.secondName)
+            return `${author.name} ${author.secondName} ${author.surname}`
+        return `${author.name} ${author.surname}`
+    }
 </script>
 
 <!-- ToDo accept only good type of files -->
@@ -71,7 +86,15 @@ const onSubmit = async (event: Event) => {
         <form class="form" @submit.prevent="onSubmit">
             <input type="text" v-model="name" placeholder="Название книги">
             <!-- Автора как поиск -->
-            <input type="text" v-model="authorId" placeholder="Автор книги">
+            <input type="text" v-model="searchAuthorRequest" placeholder="Автор книги">
+            <div>
+                <!-- <RadioAuthor v-for="author in searchedAuthors" :author="author" :key="author.id"></RadioAuthor> -->
+                <div v-for="author in searchedAuthors" :author="author" :key="author.id">
+                    <input type="radio" :id="author.id" :value="author.id" v-model="authorId">
+                    <label class="form__text" :for="author.id">{{ getFullName(author) }}</label>
+                </div>
+
+            </div>
 
             <input type="text" v-model="description" placeholder="Описание книги">
             <div class="form__genre">
@@ -108,10 +131,10 @@ const onSubmit = async (event: Event) => {
             <h2 class="form__text" v-if="isAccepted">Поля заполнены правильно</h2>
         </form>
 
-        
 
 
-        
+
+
 
     </div>
 </template>
