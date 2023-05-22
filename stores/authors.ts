@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia'
 import type { IAuthor } from '@types'
 
-class Author implements IAuthor {
+export class Author implements IAuthor {
     constructor(
         public id: string,
         public name: string,

@@ -8,14 +8,16 @@ const bookId = '' + useRoute().params.id
 const book = await useBooks().getBookById(bookId)
 const author = await useAuthors().getAuthorById(book.authorId)
 const similarBooks = await useBooks().fetchSimilarBooksById(book.id)
-const anotherBooksByThisAuthor = await useBooks().getBooksByIds(await useAuthors().getOwnedBooksIds(author.id))
 
-const genres = useGenres().getGenres().map(v => v.name && book.genresIds.includes(v.id)).join(', ')
+const anotherBooksIdsByThisAuthor = (await useAuthors().getOwnedBooksIds(author.id)).filter(v => v !== book.id)
+const anotherBooksByThisAuthor = anotherBooksIdsByThisAuthor.length ? await useBooks().getBooksByIds(anotherBooksIdsByThisAuthor) : []
 
-const formatCreatedDate = (rawDate: Date): string => {
-    const date: Date = new Date(rawDate)
-    return `${date.getFullYear()}`
-}
+const genres = useGenres().getGenres().map(v => book.genresIds.includes(v.id) ? v.name : null).filter(v => v !== null).join(', ')
+
+// const formatCreatedDate = (rawDate: Date): string => {
+//     const date: Date = new Date(rawDate)
+//     return `${date.getFullYear()}`
+// }
 </script>
 
 <template>
@@ -26,7 +28,10 @@ const formatCreatedDate = (rawDate: Date): string => {
             </div>
             <div class="legend__container">
                 <div class="legend__bio">
-                    <h2>{{ book.name }} ({{ formatCreatedDate(book.createdAt) }})</h2>
+                    <h2>
+                        {{ book.name }}
+                        <!-- ({{ formatCreatedDate(book.createdAt) }}) -->
+                    </h2>
                     <h3>{{ author.getFullName() }}</h3>
                     <p class="bio__genre">{{ genres }}</p>
                     <Rating :rating="book.rating" />
