@@ -29,7 +29,7 @@ const genres = useGenres().getGenres().map(v => book.genresIds.includes(v.id) ? 
             <div class="legend__container">
                 <div class="legend__bio">
                     <h2>
-                        {{ book.name }} 
+                        {{ book.name }}
                         <!-- ({{ formatCreatedDate(book.createdAt) }}) -->
                     </h2>
                     <h3>{{ author.getFullName() }}</h3>
